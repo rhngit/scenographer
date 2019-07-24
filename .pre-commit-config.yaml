@@ -1,0 +1,65 @@
+exclude: ^docs/
+repos:
+  -   repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v2.1.0
+      hooks:
+      # Git checks
+      -   id: debug-statements
+      -   id: no-commit-to-branch
+
+      # Files checks
+      -   id: check-symlinks
+      -   id: check-case-conflict
+      -   id: check-byte-order-marker
+      -   id: check-added-large-files
+      -   id: check-executables-have-shebangs
+      -   id: end-of-file-fixer
+      -   id: mixed-line-ending
+      -   id: trailing-whitespace
+
+      # Filetypes checks
+      -   id: check-json
+      -   id: pretty-format-json
+
+      # Python checks
+      -   id: requirements-txt-fixer
+      -   id: flake8
+
+  -   repo: local
+      hooks:
+      -   id: black
+          name: black
+          language: system
+          types: ["python"]
+          entry: poetry run black
+
+      -   id: isort
+          name: isort
+          language: system
+          types: ["python"]
+          entry: poetry run isort
+
+      -   id: pylint
+          name: pylint
+          language: system
+          types: ["python"]
+          entry: poetry run pylint
+          minimum_pre_commit_version: 1.13.0
+
+      -   id: pdoc3
+          name: pdoc3
+          language: system
+          description: "Auto-generate API documentation for Python projects"
+
+          entry: "
+            bash -c \
+              'poetry run
+                pdoc --force --html --output-dir tmpdocs scenographer  \
+              && rsync -cr tmpdocs/scenographer/ docs \
+              && rm -rf tmpdocs'
+          "
+          language: system
+          require_serial: true
+          always_run: true
+          pass_filenames: false
+          minimum_pre_commit_version: 1.13.0

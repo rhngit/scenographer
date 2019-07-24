@@ -1,0 +1,748 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.5" />
+<title>scenographer.database API documentation</title>
+<meta name="description" content="Module to connect with database" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>scenographer.database</code></h1>
+</header>
+<section id="section-intro">
+<p>Module to connect with database</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#!/usr/bin/env python3
+
+&#34;&#34;&#34;
+Module to connect with database
+&#34;&#34;&#34;
+
+import subprocess
+import uuid
+from functools import lru_cache
+from pathlib import Path
+from pipes import quote
+from types import SimpleNamespace
+from typing import Any, Iterable, List, Mapping, NamedTuple, TextIO
+
+import postgres_copy
+import sqlalchemy
+from loguru import logger
+from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.engine import Engine, ResultProxy
+from sqlalchemy.schema import Table
+from sqlalchemy.sql.expression import Select
+from sqlalchemy.types import CHAR, TypeDecorator
+
+from scenographer.utils import PrintAs
+
+
+class Database(NamedTuple):
+    &#34;Wrapper around database operations&#34;
+    database_url: str
+
+    def execute(self, *args, **kwargs) -&gt; ResultProxy:
+        &#34;&#34;&#34;
+        Executes query and returns the usual ResultProxy from SQLAlchemy.
+        &#34;&#34;&#34;
+        with self.engine.begin() as connection:
+            return connection.execute(*args, **kwargs)
+
+    def execute_return_list(self, *args, **kwargs) -&gt; List[Any]:
+        &#34;&#34;&#34;
+        Executes query and returns a list of the resulting values
+        It raises an AssertionError if more than one column is returned
+        &#34;&#34;&#34;
+        resultproxy = list(self.execute(*args, **kwargs))
+
+        if resultproxy:
+            columns = [column_name for column_name, value in resultproxy[0].items()]
+            if len(columns) != 1:
+                print(columns)
+            assert len(columns) == 1
+
+        return [rowproxy.values()[0] for rowproxy in resultproxy]
+
+    def execute_return_dict(self, *args, **kwargs) -&gt; List[Mapping[str, Any]]:
+        &#34;&#34;&#34;
+        Executes query and returns each row as a dictionary;
+        It raises an AssertionError if any column name is repeated.
+        &#34;&#34;&#34;
+        resultproxy = list(self.execute(*args, **kwargs))
+
+        if resultproxy:
+            columns = [column_name for column_name, value in resultproxy[0].items()]
+            assert len(columns) == len(set(columns))
+
+        return [
+            {column: value for column, value in rowproxy.items()}
+            for rowproxy in resultproxy
+        ]
+
+    def copy_to_csv(self, file: TextIO, select: Select) -&gt; None:
+        &#34;Executes query and write the rows into a file object in CSV format.&#34;
+        postgres_copy.copy_to(select, file, self.engine, format=&#34;csv&#34;, header=True)
+
+    @property
+    @lru_cache()
+    def engine(self) -&gt; Engine:
+        &#34;Create, return and cache the associated sqlalchemy engine&#34;
+        return sqlalchemy.create_engine(self.database_url)
+
+    @property
+    @lru_cache()
+    def tables(self) -&gt; SimpleNamespace:
+        &#34;Reflect the database to return and cache a namespace with all of its tables&#34;
+
+        logger.info(&#34;Reflecting source database&#34;)
+        metadata = sqlalchemy.MetaData()
+        with PrintAs(logger.warning):
+            metadata.reflect(self.engine, views=False)
+
+        return SimpleNamespace(**metadata.tables)
+
+    def load_schema(self, source_database: &#34;Database&#34;) -&gt; None:
+        &#34;&#34;&#34;
+        pg_dump \
+            --format=custom --no-owner --schema-only \
+            --verbose {source_database} \
+        | pg_restore \
+            --format=custom --no-owner --schema-only \
+            --no-acl \
+            --verbose -d {target_database}
+        &#34;&#34;&#34;
+        pg_copy_schema = self.load_schema.__doc__.format(
+            source_database=quote(source_database.database_url),
+            target_database=quote(self.database_url),
+        )
+        process = subprocess.Popen(
+            pg_copy_schema,
+            shell=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
+        with process.stdout:
+            for line in iter(process.stdout.readline, b&#34;&#34;):
+                logger.trace(&#34;{}&#34;, line)
+
+        exit_code = process.wait()
+        logger.debug(&#34;Command pg_dump | pg_restore exited with code {}&#34;, exit_code)
+        # assert exit_code == 0
+
+    def load_samples(self, directory: Path, samples: Iterable[Table]) -&gt; None:
+        &#34;Copy the generated sample CSVs into the database&#34;
+        for table in samples:
+            with open(directory / Path(table.name).with_suffix(&#34;.csv&#34;)) as file:
+                postgres_copy.copy_from(
+                    file, table, self.engine, format=&#34;csv&#34;, header=True
+                )
+
+    def test_conn(self) -&gt; &#34;Database&#34;:
+        &#34;Copy the generated sample CSVs into the database&#34;
+        return self.engine and self  # Always returns self
+
+
+# Retrieved from
+# https://docs.sqlalchemy.org/en/13/core/custom_types.html#backend-agnostic-guid-type
+class UUIDField(TypeDecorator):
+    &#34;&#34;&#34;Platform-independent GUID type.
+
+    Uses PostgreSQL&#39;s UUID type, otherwise uses
+    CHAR(32), storing as stringified hex values.
+    &#34;&#34;&#34;
+
+    impl = CHAR
+
+    def load_dialect_impl(self, dialect):
+        if dialect.name == &#34;postgresql&#34;:
+            return dialect.type_descriptor(UUID())
+        else:
+            return dialect.type_descriptor(CHAR(32))
+
+    def process_bind_param(self, value, dialect):
+        if value is None:
+            return value
+        elif dialect.name == &#34;postgresql&#34;:
+            return str(value)
+        else:
+            if not isinstance(value, uuid.UUID):
+                return &#34;%.32x&#34; % uuid.UUID(value).int
+            else:
+                # hexstring
+                return &#34;%.32x&#34; % value.int
+
+    def process_result_value(self, value, dialect):
+        if value is None:
+            return value
+        else:
+            if not isinstance(value, uuid.UUID):
+                value = uuid.UUID(value)
+            return value</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="scenographer.database.Database"><code class="flex name class">
+<span>class <span class="ident">Database</span></span>
+<span>(</span><span>database_url)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Wrapper around database operations</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Database(NamedTuple):
+    &#34;Wrapper around database operations&#34;
+    database_url: str
+
+    def execute(self, *args, **kwargs) -&gt; ResultProxy:
+        &#34;&#34;&#34;
+        Executes query and returns the usual ResultProxy from SQLAlchemy.
+        &#34;&#34;&#34;
+        with self.engine.begin() as connection:
+            return connection.execute(*args, **kwargs)
+
+    def execute_return_list(self, *args, **kwargs) -&gt; List[Any]:
+        &#34;&#34;&#34;
+        Executes query and returns a list of the resulting values
+        It raises an AssertionError if more than one column is returned
+        &#34;&#34;&#34;
+        resultproxy = list(self.execute(*args, **kwargs))
+
+        if resultproxy:
+            columns = [column_name for column_name, value in resultproxy[0].items()]
+            if len(columns) != 1:
+                print(columns)
+            assert len(columns) == 1
+
+        return [rowproxy.values()[0] for rowproxy in resultproxy]
+
+    def execute_return_dict(self, *args, **kwargs) -&gt; List[Mapping[str, Any]]:
+        &#34;&#34;&#34;
+        Executes query and returns each row as a dictionary;
+        It raises an AssertionError if any column name is repeated.
+        &#34;&#34;&#34;
+        resultproxy = list(self.execute(*args, **kwargs))
+
+        if resultproxy:
+            columns = [column_name for column_name, value in resultproxy[0].items()]
+            assert len(columns) == len(set(columns))
+
+        return [
+            {column: value for column, value in rowproxy.items()}
+            for rowproxy in resultproxy
+        ]
+
+    def copy_to_csv(self, file: TextIO, select: Select) -&gt; None:
+        &#34;Executes query and write the rows into a file object in CSV format.&#34;
+        postgres_copy.copy_to(select, file, self.engine, format=&#34;csv&#34;, header=True)
+
+    @property
+    @lru_cache()
+    def engine(self) -&gt; Engine:
+        &#34;Create, return and cache the associated sqlalchemy engine&#34;
+        return sqlalchemy.create_engine(self.database_url)
+
+    @property
+    @lru_cache()
+    def tables(self) -&gt; SimpleNamespace:
+        &#34;Reflect the database to return and cache a namespace with all of its tables&#34;
+
+        logger.info(&#34;Reflecting source database&#34;)
+        metadata = sqlalchemy.MetaData()
+        with PrintAs(logger.warning):
+            metadata.reflect(self.engine, views=False)
+
+        return SimpleNamespace(**metadata.tables)
+
+    def load_schema(self, source_database: &#34;Database&#34;) -&gt; None:
+        &#34;&#34;&#34;
+        pg_dump \
+            --format=custom --no-owner --schema-only \
+            --verbose {source_database} \
+        | pg_restore \
+            --format=custom --no-owner --schema-only \
+            --no-acl \
+            --verbose -d {target_database}
+        &#34;&#34;&#34;
+        pg_copy_schema = self.load_schema.__doc__.format(
+            source_database=quote(source_database.database_url),
+            target_database=quote(self.database_url),
+        )
+        process = subprocess.Popen(
+            pg_copy_schema,
+            shell=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
+        with process.stdout:
+            for line in iter(process.stdout.readline, b&#34;&#34;):
+                logger.trace(&#34;{}&#34;, line)
+
+        exit_code = process.wait()
+        logger.debug(&#34;Command pg_dump | pg_restore exited with code {}&#34;, exit_code)
+        # assert exit_code == 0
+
+    def load_samples(self, directory: Path, samples: Iterable[Table]) -&gt; None:
+        &#34;Copy the generated sample CSVs into the database&#34;
+        for table in samples:
+            with open(directory / Path(table.name).with_suffix(&#34;.csv&#34;)) as file:
+                postgres_copy.copy_from(
+                    file, table, self.engine, format=&#34;csv&#34;, header=True
+                )
+
+    def test_conn(self) -&gt; &#34;Database&#34;:
+        &#34;Copy the generated sample CSVs into the database&#34;
+        return self.engine and self  # Always returns self</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.tuple</li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="scenographer.database.Database.database_url"><code class="name">var <span class="ident">database_url</span></code></dt>
+<dd>
+<section class="desc"><p>Alias for field number 0</p></section>
+</dd>
+<dt id="scenographer.database.Database.engine"><code class="name">var <span class="ident">engine</span></code></dt>
+<dd>
+<section class="desc"><p>Create, return and cache the associated sqlalchemy engine</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+@lru_cache()
+def engine(self) -&gt; Engine:
+    &#34;Create, return and cache the associated sqlalchemy engine&#34;
+    return sqlalchemy.create_engine(self.database_url)</code></pre>
+</details>
+</dd>
+<dt id="scenographer.database.Database.tables"><code class="name">var <span class="ident">tables</span></code></dt>
+<dd>
+<section class="desc"><p>Reflect the database to return and cache a namespace with all of its tables</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+@lru_cache()
+def tables(self) -&gt; SimpleNamespace:
+    &#34;Reflect the database to return and cache a namespace with all of its tables&#34;
+
+    logger.info(&#34;Reflecting source database&#34;)
+    metadata = sqlalchemy.MetaData()
+    with PrintAs(logger.warning):
+        metadata.reflect(self.engine, views=False)
+
+    return SimpleNamespace(**metadata.tables)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="scenographer.database.Database.copy_to_csv"><code class="name flex">
+<span>def <span class="ident">copy_to_csv</span></span>(<span>self, file, select)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Executes query and write the rows into a file object in CSV format.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def copy_to_csv(self, file: TextIO, select: Select) -&gt; None:
+    &#34;Executes query and write the rows into a file object in CSV format.&#34;
+    postgres_copy.copy_to(select, file, self.engine, format=&#34;csv&#34;, header=True)</code></pre>
+</details>
+</dd>
+<dt id="scenographer.database.Database.execute"><code class="name flex">
+<span>def <span class="ident">execute</span></span>(<span>self, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Executes query and returns the usual ResultProxy from SQLAlchemy.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def execute(self, *args, **kwargs) -&gt; ResultProxy:
+    &#34;&#34;&#34;
+    Executes query and returns the usual ResultProxy from SQLAlchemy.
+    &#34;&#34;&#34;
+    with self.engine.begin() as connection:
+        return connection.execute(*args, **kwargs)</code></pre>
+</details>
+</dd>
+<dt id="scenographer.database.Database.execute_return_dict"><code class="name flex">
+<span>def <span class="ident">execute_return_dict</span></span>(<span>self, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Executes query and returns each row as a dictionary;
+It raises an AssertionError if any column name is repeated.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def execute_return_dict(self, *args, **kwargs) -&gt; List[Mapping[str, Any]]:
+    &#34;&#34;&#34;
+    Executes query and returns each row as a dictionary;
+    It raises an AssertionError if any column name is repeated.
+    &#34;&#34;&#34;
+    resultproxy = list(self.execute(*args, **kwargs))
+
+    if resultproxy:
+        columns = [column_name for column_name, value in resultproxy[0].items()]
+        assert len(columns) == len(set(columns))
+
+    return [
+        {column: value for column, value in rowproxy.items()}
+        for rowproxy in resultproxy
+    ]</code></pre>
+</details>
+</dd>
+<dt id="scenographer.database.Database.execute_return_list"><code class="name flex">
+<span>def <span class="ident">execute_return_list</span></span>(<span>self, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Executes query and returns a list of the resulting values
+It raises an AssertionError if more than one column is returned</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def execute_return_list(self, *args, **kwargs) -&gt; List[Any]:
+    &#34;&#34;&#34;
+    Executes query and returns a list of the resulting values
+    It raises an AssertionError if more than one column is returned
+    &#34;&#34;&#34;
+    resultproxy = list(self.execute(*args, **kwargs))
+
+    if resultproxy:
+        columns = [column_name for column_name, value in resultproxy[0].items()]
+        if len(columns) != 1:
+            print(columns)
+        assert len(columns) == 1
+
+    return [rowproxy.values()[0] for rowproxy in resultproxy]</code></pre>
+</details>
+</dd>
+<dt id="scenographer.database.Database.load_samples"><code class="name flex">
+<span>def <span class="ident">load_samples</span></span>(<span>self, directory, samples)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Copy the generated sample CSVs into the database</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def load_samples(self, directory: Path, samples: Iterable[Table]) -&gt; None:
+    &#34;Copy the generated sample CSVs into the database&#34;
+    for table in samples:
+        with open(directory / Path(table.name).with_suffix(&#34;.csv&#34;)) as file:
+            postgres_copy.copy_from(
+                file, table, self.engine, format=&#34;csv&#34;, header=True
+            )</code></pre>
+</details>
+</dd>
+<dt id="scenographer.database.Database.load_schema"><code class="name flex">
+<span>def <span class="ident">load_schema</span></span>(<span>self, source_database)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>pg_dump
+&ndash;format=custom &ndash;no-owner &ndash;schema-only
+&ndash;verbose {source_database}
+| pg_restore
+&ndash;format=custom &ndash;no-owner &ndash;schema-only
+&ndash;no-acl
+&ndash;verbose -d {target_database}</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def load_schema(self, source_database: &#34;Database&#34;) -&gt; None:
+    &#34;&#34;&#34;
+    pg_dump \
+        --format=custom --no-owner --schema-only \
+        --verbose {source_database} \
+    | pg_restore \
+        --format=custom --no-owner --schema-only \
+        --no-acl \
+        --verbose -d {target_database}
+    &#34;&#34;&#34;
+    pg_copy_schema = self.load_schema.__doc__.format(
+        source_database=quote(source_database.database_url),
+        target_database=quote(self.database_url),
+    )
+    process = subprocess.Popen(
+        pg_copy_schema,
+        shell=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
+    with process.stdout:
+        for line in iter(process.stdout.readline, b&#34;&#34;):
+            logger.trace(&#34;{}&#34;, line)
+
+    exit_code = process.wait()
+    logger.debug(&#34;Command pg_dump | pg_restore exited with code {}&#34;, exit_code)</code></pre>
+</details>
+</dd>
+<dt id="scenographer.database.Database.test_conn"><code class="name flex">
+<span>def <span class="ident">test_conn</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Copy the generated sample CSVs into the database</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_conn(self) -&gt; &#34;Database&#34;:
+    &#34;Copy the generated sample CSVs into the database&#34;
+    return self.engine and self  # Always returns self</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="scenographer.database.UUIDField"><code class="flex name class">
+<span>class <span class="ident">UUIDField</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Platform-independent GUID type.</p>
+<p>Uses PostgreSQL's UUID type, otherwise uses
+CHAR(32), storing as stringified hex values.</p>
+<p>Construct a :class:<code>.TypeDecorator</code>.</p>
+<p>Arguments sent here are passed to the constructor
+of the class assigned to the <code>impl</code> class level attribute,
+assuming the <code>impl</code> is a callable, and the resulting
+object is assigned to the <code>self.impl</code> instance attribute
+(thus overriding the class attribute of the same name).</p>
+<p>If the class level <code>impl</code> is not a callable (the unusual case),
+it will be assigned to the same instance attribute 'as-is',
+ignoring those arguments passed to the constructor.</p>
+<p>Subclasses can override this to customize the generation
+of <code>self.impl</code> entirely.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class UUIDField(TypeDecorator):
+    &#34;&#34;&#34;Platform-independent GUID type.
+
+    Uses PostgreSQL&#39;s UUID type, otherwise uses
+    CHAR(32), storing as stringified hex values.
+    &#34;&#34;&#34;
+
+    impl = CHAR
+
+    def load_dialect_impl(self, dialect):
+        if dialect.name == &#34;postgresql&#34;:
+            return dialect.type_descriptor(UUID())
+        else:
+            return dialect.type_descriptor(CHAR(32))
+
+    def process_bind_param(self, value, dialect):
+        if value is None:
+            return value
+        elif dialect.name == &#34;postgresql&#34;:
+            return str(value)
+        else:
+            if not isinstance(value, uuid.UUID):
+                return &#34;%.32x&#34; % uuid.UUID(value).int
+            else:
+                # hexstring
+                return &#34;%.32x&#34; % value.int
+
+    def process_result_value(self, value, dialect):
+        if value is None:
+            return value
+        else:
+            if not isinstance(value, uuid.UUID):
+                value = uuid.UUID(value)
+            return value</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>sqlalchemy.sql.type_api.TypeDecorator</li>
+<li>sqlalchemy.sql.base.SchemaEventTarget</li>
+<li>sqlalchemy.sql.type_api.TypeEngine</li>
+<li>sqlalchemy.sql.visitors.Visitable</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="scenographer.database.UUIDField.impl"><code class="name">var <span class="ident">impl</span></code></dt>
+<dd>
+<section class="desc"><p>The SQL CHAR type.</p></section>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="scenographer.database.UUIDField.load_dialect_impl"><code class="name flex">
+<span>def <span class="ident">load_dialect_impl</span></span>(<span>self, dialect)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Return a :class:<code>.TypeEngine</code> object corresponding to a dialect.</p>
+<p>This is an end-user override hook that can be used to provide
+differing types depending on the given dialect.
+It is used
+by the :class:<code>.TypeDecorator</code> implementation of :meth:<code>type_engine</code>
+to help determine what type should ultimately be returned
+for a given :class:<code>.TypeDecorator</code>.</p>
+<p>By default returns <code>self.impl</code>.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def load_dialect_impl(self, dialect):
+    if dialect.name == &#34;postgresql&#34;:
+        return dialect.type_descriptor(UUID())
+    else:
+        return dialect.type_descriptor(CHAR(32))</code></pre>
+</details>
+</dd>
+<dt id="scenographer.database.UUIDField.process_bind_param"><code class="name flex">
+<span>def <span class="ident">process_bind_param</span></span>(<span>self, value, dialect)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Receive a bound parameter value to be converted.</p>
+<p>Subclasses override this method to return the
+value that should be passed along to the underlying
+:class:<code>.TypeEngine</code> object, and from there to the
+DBAPI <code>execute()</code> method.</p>
+<p>The operation could be anything desired to perform custom
+behavior, such as transforming or serializing data.
+This could also be used as a hook for validating logic.</p>
+<p>This operation should be designed with the reverse operation
+in mind, which would be the process_result_value method of
+this class.</p>
+<p>:param value: Data to operate upon, of any type expected by
+this method in the subclass.
+Can be <code>None</code>.
+:param dialect: the :class:<code>.Dialect</code> in use.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def process_bind_param(self, value, dialect):
+    if value is None:
+        return value
+    elif dialect.name == &#34;postgresql&#34;:
+        return str(value)
+    else:
+        if not isinstance(value, uuid.UUID):
+            return &#34;%.32x&#34; % uuid.UUID(value).int
+        else:
+            # hexstring
+            return &#34;%.32x&#34; % value.int</code></pre>
+</details>
+</dd>
+<dt id="scenographer.database.UUIDField.process_result_value"><code class="name flex">
+<span>def <span class="ident">process_result_value</span></span>(<span>self, value, dialect)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Receive a result-row column value to be converted.</p>
+<p>Subclasses should implement this method to operate on data
+fetched from the database.</p>
+<p>Subclasses override this method to return the
+value that should be passed back to the application,
+given a value that is already processed by
+the underlying :class:<code>.TypeEngine</code> object, originally
+from the DBAPI cursor method <code>fetchone()</code> or similar.</p>
+<p>The operation could be anything desired to perform custom
+behavior, such as transforming or serializing data.
+This could also be used as a hook for validating logic.</p>
+<p>:param value: Data to operate upon, of any type expected by
+this method in the subclass.
+Can be <code>None</code>.
+:param dialect: the :class:<code>.Dialect</code> in use.</p>
+<p>This operation should be designed to be reversible by
+the "process_bind_param" method of this class.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def process_result_value(self, value, dialect):
+    if value is None:
+        return value
+    else:
+        if not isinstance(value, uuid.UUID):
+            value = uuid.UUID(value)
+        return value</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="scenographer" href="index.html">scenographer</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="scenographer.database.Database" href="#scenographer.database.Database">Database</a></code></h4>
+<ul class="two-column">
+<li><code><a title="scenographer.database.Database.copy_to_csv" href="#scenographer.database.Database.copy_to_csv">copy_to_csv</a></code></li>
+<li><code><a title="scenographer.database.Database.database_url" href="#scenographer.database.Database.database_url">database_url</a></code></li>
+<li><code><a title="scenographer.database.Database.engine" href="#scenographer.database.Database.engine">engine</a></code></li>
+<li><code><a title="scenographer.database.Database.execute" href="#scenographer.database.Database.execute">execute</a></code></li>
+<li><code><a title="scenographer.database.Database.execute_return_dict" href="#scenographer.database.Database.execute_return_dict">execute_return_dict</a></code></li>
+<li><code><a title="scenographer.database.Database.execute_return_list" href="#scenographer.database.Database.execute_return_list">execute_return_list</a></code></li>
+<li><code><a title="scenographer.database.Database.load_samples" href="#scenographer.database.Database.load_samples">load_samples</a></code></li>
+<li><code><a title="scenographer.database.Database.load_schema" href="#scenographer.database.Database.load_schema">load_schema</a></code></li>
+<li><code><a title="scenographer.database.Database.tables" href="#scenographer.database.Database.tables">tables</a></code></li>
+<li><code><a title="scenographer.database.Database.test_conn" href="#scenographer.database.Database.test_conn">test_conn</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="scenographer.database.UUIDField" href="#scenographer.database.UUIDField">UUIDField</a></code></h4>
+<ul class="">
+<li><code><a title="scenographer.database.UUIDField.impl" href="#scenographer.database.UUIDField.impl">impl</a></code></li>
+<li><code><a title="scenographer.database.UUIDField.load_dialect_impl" href="#scenographer.database.UUIDField.load_dialect_impl">load_dialect_impl</a></code></li>
+<li><code><a title="scenographer.database.UUIDField.process_bind_param" href="#scenographer.database.UUIDField.process_bind_param">process_bind_param</a></code></li>
+<li><code><a title="scenographer.database.UUIDField.process_result_value" href="#scenographer.database.UUIDField.process_result_value">process_result_value</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.5</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

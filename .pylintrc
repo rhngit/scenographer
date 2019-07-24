@@ -1,0 +1,15 @@
+[MESSAGES CONTROL]
+disable=bad-continuation,
+        abstract-method,
+        no-else-return,
+        no-member,
+        no-name-in-module,
+        invalid-name,
+        import-outside-toplevel,
+        missing-module-docstring,
+        missing-class-docstring,
+        missing-function-docstring,
+        unnecessary-comprehension,
+        consider-using-set-comprehension,
+        attribute-defined-outside-init,
+        inconsistent-return-statements

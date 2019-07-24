@@ -1,0 +1,1105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.5" />
+<title>scenographer.scenographer API documentation</title>
+<meta name="description" content="This module takes care of loading the settings, transforming them
+into an appropriate format if necessary and providing the
+user-provided settings to …" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>scenographer.scenographer</code></h1>
+</header>
+<section id="section-intro">
+<p>This module takes care of loading the settings, transforming them
+into an appropriate format if necessary and providing the
+user-provided settings to the rest of the application.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+This module takes care of loading the settings, transforming them
+into an appropriate format if necessary and providing the
+user-provided settings to the rest of the application.
+&#34;&#34;&#34;
+
+import json
+import operator
+import os
+import sys
+from functools import lru_cache
+from pathlib import Path
+from tempfile import mkdtemp
+from typing import Any, Iterable, List, Mapping, NamedTuple, Optional
+
+import sqlalchemy
+from dict_digger import dig
+from loguru import logger
+from pyrsistent import freeze, thaw
+from sqlalchemy.schema import Table
+
+from scenographer.database import Database
+from scenographer.relations import Relation, RelationDAG
+from scenographer.sample import TableSample
+
+
+class Settings(NamedTuple):
+    SOURCE_DATABASE_URL: str
+    TARGET_DATABASE_URL: str
+    QUERY_MODIFIERS: dict = freeze({})
+    IGNORE_TABLES: List[str] = freeze([])
+    EXTEND_RELATIONS: List[Mapping[str, str]] = freeze([])
+    IGNORE_RELATIONS: List[Mapping[str, str]] = freeze([])
+    OUTPUT_DIRECTORY: Optional[str] = None
+
+    @classmethod
+    def load(cls, path):
+        import commentjson
+
+        with open(path) as f:
+            data = commentjson.load(f)
+
+        return cls(**freeze(data))
+
+    @classmethod
+    @lru_cache()
+    def empty(cls):
+        return cls(
+            SOURCE_DATABASE_URL=&#34;&#34;,
+            TARGET_DATABASE_URL=&#34;&#34;,
+            IGNORE_TABLES=freeze([&#34;example1&#34;, &#34;migrations&#34;]),
+            EXTEND_RELATIONS=freeze(
+                [{&#34;pk&#34;: &#34;product.id&#34;, &#34;fk&#34;: &#34;product_ownership.product_id&#34;}]
+            ),
+            IGNORE_RELATIONS=freeze(
+                [{&#34;pk&#34;: &#34;product.id&#34;, &#34;fk&#34;: &#34;client.favorite_product_id&#34;}]
+            ),
+            QUERY_MODIFIERS=freeze(
+                {
+                    &#34;_default&#34;: {&#34;conditions&#34;: [], &#34;limit&#34;: 300},
+                    &#34;users&#34;: {&#34;conditions&#34;: [&#34;email ilike &#39;%@example.com&#39;&#34;]},
+                }
+            ),
+        )
+
+    @property
+    @lru_cache()
+    def json(self):
+        return json.dumps(
+            {k: thaw(v) for k, v in self._asdict().items()}, indent=4, sort_keys=True,
+        )
+
+
+class Scenographer(NamedTuple):
+    options: Settings
+
+    @property
+    @lru_cache()
+    def source_database(self) -&gt; Database:
+        &#34;&#34;&#34;
+        SOURCE_DATABASE_URL key.
+        Abort if any any issue arises!
+        &#34;&#34;&#34;
+        return self._instanciate_database(&#34;SOURCE_DATABASE_URL&#34;)
+
+    @property
+    def target_database(self) -&gt; Database:
+        &#34;&#34;&#34;
+        TARGET_DATABASE_URL key.
+        Abort if any any issue arises!
+        &#34;&#34;&#34;
+        return self._instanciate_database(&#34;TARGET_DATABASE_URL&#34;)
+
+    @property
+    @lru_cache()
+    def output_directory(self) -&gt; Path:
+        &#34;&#34;&#34;
+        SOURCE_DATABASE_URL key.
+        Abort if any any issue arises!
+        &#34;&#34;&#34;
+        if not self.options.OUTPUT_DIRECTORY:
+            directory = mkdtemp(prefix=&#34;sample-&#34;)
+            logger.info(
+                &#34;Output directory unspecified. &#34;
+                &#34;Saving samples in temporary directory {}&#34;,
+                directory,
+            )
+        else:
+            directory = self.options.OUTPUT_DIRECTORY
+            try:
+                os.mkdir(directory)
+            except FileExistsError:
+                logger.error(
+                    &#34;Error creating output directory {}. &#34;
+                    &#34;Make sure there&#39;s nothing there. &#34;
+                    &#34;Aborting.&#34;,
+                    directory,
+                )
+                sys.exit(1)
+
+        return Path(directory)
+
+    @property
+    @lru_cache()
+    def extend_relations(self) -&gt; Iterable[Relation]:
+        &#34;&#34;&#34;
+        EXTEND_RELATIONS key.
+        Scenographer will recognize the relations specified here,
+        in addition to those specified by database constraints.
+        This method will return the equivalent Relation instances
+        &#34;&#34;&#34;
+        relations = []
+        for relation in self.options.EXTEND_RELATIONS:
+            try:
+                relations.append(
+                    Relation(
+                        pk=self.column_by_name[relation[&#34;pk&#34;]],
+                        fk=self.column_by_name[relation[&#34;fk&#34;]],
+                    )
+                )
+            except KeyError:
+                logger.warning(&#34;Can&#39;t match relation {}. Skipping.&#34;, dict(relation))
+                continue
+
+        return relations
+
+    @property
+    @lru_cache()
+    def ignore_relations(self) -&gt; Iterable[Relation]:
+        &#34;&#34;&#34;
+        IGNORE_RELATIONS key.
+        Scenographer will not recognize the relations specified here.
+        This method will return the equivalent Relation instances
+        &#34;&#34;&#34;
+        relations = []
+        for relation in self.options.IGNORE_RELATIONS:
+            try:
+                relations.append(
+                    Relation(
+                        pk=self.column_by_name[relation[&#34;pk&#34;]],
+                        fk=self.column_by_name[relation[&#34;fk&#34;]],
+                    )
+                )
+            except KeyError:
+                logger.warning(&#34;Can&#39;t match relation {}. Skipping.&#34;, relation)
+                continue
+
+        return relations
+
+    @property
+    @lru_cache()
+    def ignore_tables(self) -&gt; Iterable[Table]:
+        &#34;&#34;&#34;
+        IGNORE_TABLES key.
+        Scenographer will not sample any data coming from these tables.
+        This method will return the equivalent Table instances
+        (binded to source_database)
+        &#34;&#34;&#34;
+        ignored_tables = []
+        for table_name in self.options.IGNORE_TABLES:
+            if table_name in self.source_database.tables.__dict__:
+                ignored_tables.append(getattr(self.source_database.tables, table_name))
+            else:
+                logger.warning(&#34;Can&#39;t find table {}. Skipping.&#34;, table_name)
+        return ignored_tables
+
+    @property
+    @lru_cache()
+    def query_modifiers(self) -&gt; Mapping[Table, Mapping[str, Any]]:
+        &#34;&#34;&#34;
+        QUERY_MODIFIERS key.
+        Scenographer will take this key in account while sampling.
+        This method will return the equivalent Table instances
+        (binded to source_database)
+        &#34;&#34;&#34;
+        mods = self.options.QUERY_MODIFIERS
+        default_limit = dig(thaw(mods), &#34;_default&#34;, &#34;limit&#34;) or 30
+        default_conditions = dig(thaw(mods), &#34;_default&#34;, &#34;conditions&#34;) or list()
+
+        non_specified_entrypoints = operator.sub(
+            set([t.name for t in self.relation_dag.entrypoints]), set(mods.keys()),
+        )
+        if non_specified_entrypoints:
+            logger.warning(
+                &#34;Entrypoints are advised to be added as query modifiers. &#34;
+                &#34;They define what the final sample will look like&#34;
+            )
+            logger.warning(
+                &#34;These entrypoints are not specified: {}&#34;, non_specified_entrypoints,
+            )
+
+        modifiers = {}
+        for table in self.relation_dag.tables:
+            if table.name not in mods:
+                limit = default_limit
+                conditions = default_conditions
+
+            else:
+                limit, conditions = (
+                    mods[table.name].get(&#34;limit&#34;),
+                    mods[table.name].get(&#34;conditions&#34;),
+                )
+                if not limit and not conditions:
+                    logger.warning(&#34;QUERY_MODIFIER for {} malformed.&#34;, table.name)
+                    continue
+
+                limit = limit or default_limit
+                conditions = conditions or default_conditions
+
+            modifiers[table] = {&#34;limit&#34;: limit, &#34;conditions&#34;: conditions}
+
+        return modifiers
+
+    @property
+    @lru_cache()
+    def relation_dag(self) -&gt; RelationDAG:
+        logger.info(&#34;Building the database graph&#34;)
+        return RelationDAG.load(
+            self.source_database,
+            extend_relations=self.extend_relations,
+            ignore_relations=self.ignore_relations,
+            ignore_tables=self.ignore_tables,
+        )
+
+    @property
+    def samples(self) -&gt; Iterable[Table]:
+        logger.info(&#34;Starting sampling&#34;)
+        return TableSample.sample_dag(
+            self.source_database,
+            self.relation_dag,
+            self.query_modifiers,
+            self.output_directory,
+        )
+
+    @property
+    @lru_cache()
+    def column_by_name(self):
+        return {
+            f&#34;{column.table.name}.{column.name}&#34;: column
+            for columns in [
+                table.columns for table in self.source_database.tables.__dict__.values()
+            ]
+            for column in columns
+        }
+
+    def copy_schema(self):
+        logger.info(&#34;Copying schema&#34;)
+        self.target_database.load_schema(self.source_database)
+        return self
+
+    def copy_sample(self):
+        logger.info(&#34;Loading sample into target&#34;)
+        self.target_database.load_samples(self.output_directory, self.samples)
+        return self
+
+    def _instanciate_database(self, var):
+        &#34;&#34;&#34;
+        Helper method to instanciate a database method
+        Scenographer will read a postgres url from the config
+        and try to connect with that database.
+        Abort if any any issue arises!
+        &#34;&#34;&#34;
+        try:
+            database_url = self.options._asdict()[var]
+            return Database(database_url).test_conn()
+        except sqlalchemy.exc.ArgumentError:
+            logger.error(&#34;Error connecting to {}&#34;, var)
+            sys.exit(1)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="scenographer.scenographer.Scenographer"><code class="flex name class">
+<span>class <span class="ident">Scenographer</span></span>
+<span>(</span><span>options)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Scenographer(options,)</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Scenographer(NamedTuple):
+    options: Settings
+
+    @property
+    @lru_cache()
+    def source_database(self) -&gt; Database:
+        &#34;&#34;&#34;
+        SOURCE_DATABASE_URL key.
+        Abort if any any issue arises!
+        &#34;&#34;&#34;
+        return self._instanciate_database(&#34;SOURCE_DATABASE_URL&#34;)
+
+    @property
+    def target_database(self) -&gt; Database:
+        &#34;&#34;&#34;
+        TARGET_DATABASE_URL key.
+        Abort if any any issue arises!
+        &#34;&#34;&#34;
+        return self._instanciate_database(&#34;TARGET_DATABASE_URL&#34;)
+
+    @property
+    @lru_cache()
+    def output_directory(self) -&gt; Path:
+        &#34;&#34;&#34;
+        SOURCE_DATABASE_URL key.
+        Abort if any any issue arises!
+        &#34;&#34;&#34;
+        if not self.options.OUTPUT_DIRECTORY:
+            directory = mkdtemp(prefix=&#34;sample-&#34;)
+            logger.info(
+                &#34;Output directory unspecified. &#34;
+                &#34;Saving samples in temporary directory {}&#34;,
+                directory,
+            )
+        else:
+            directory = self.options.OUTPUT_DIRECTORY
+            try:
+                os.mkdir(directory)
+            except FileExistsError:
+                logger.error(
+                    &#34;Error creating output directory {}. &#34;
+                    &#34;Make sure there&#39;s nothing there. &#34;
+                    &#34;Aborting.&#34;,
+                    directory,
+                )
+                sys.exit(1)
+
+        return Path(directory)
+
+    @property
+    @lru_cache()
+    def extend_relations(self) -&gt; Iterable[Relation]:
+        &#34;&#34;&#34;
+        EXTEND_RELATIONS key.
+        Scenographer will recognize the relations specified here,
+        in addition to those specified by database constraints.
+        This method will return the equivalent Relation instances
+        &#34;&#34;&#34;
+        relations = []
+        for relation in self.options.EXTEND_RELATIONS:
+            try:
+                relations.append(
+                    Relation(
+                        pk=self.column_by_name[relation[&#34;pk&#34;]],
+                        fk=self.column_by_name[relation[&#34;fk&#34;]],
+                    )
+                )
+            except KeyError:
+                logger.warning(&#34;Can&#39;t match relation {}. Skipping.&#34;, dict(relation))
+                continue
+
+        return relations
+
+    @property
+    @lru_cache()
+    def ignore_relations(self) -&gt; Iterable[Relation]:
+        &#34;&#34;&#34;
+        IGNORE_RELATIONS key.
+        Scenographer will not recognize the relations specified here.
+        This method will return the equivalent Relation instances
+        &#34;&#34;&#34;
+        relations = []
+        for relation in self.options.IGNORE_RELATIONS:
+            try:
+                relations.append(
+                    Relation(
+                        pk=self.column_by_name[relation[&#34;pk&#34;]],
+                        fk=self.column_by_name[relation[&#34;fk&#34;]],
+                    )
+                )
+            except KeyError:
+                logger.warning(&#34;Can&#39;t match relation {}. Skipping.&#34;, relation)
+                continue
+
+        return relations
+
+    @property
+    @lru_cache()
+    def ignore_tables(self) -&gt; Iterable[Table]:
+        &#34;&#34;&#34;
+        IGNORE_TABLES key.
+        Scenographer will not sample any data coming from these tables.
+        This method will return the equivalent Table instances
+        (binded to source_database)
+        &#34;&#34;&#34;
+        ignored_tables = []
+        for table_name in self.options.IGNORE_TABLES:
+            if table_name in self.source_database.tables.__dict__:
+                ignored_tables.append(getattr(self.source_database.tables, table_name))
+            else:
+                logger.warning(&#34;Can&#39;t find table {}. Skipping.&#34;, table_name)
+        return ignored_tables
+
+    @property
+    @lru_cache()
+    def query_modifiers(self) -&gt; Mapping[Table, Mapping[str, Any]]:
+        &#34;&#34;&#34;
+        QUERY_MODIFIERS key.
+        Scenographer will take this key in account while sampling.
+        This method will return the equivalent Table instances
+        (binded to source_database)
+        &#34;&#34;&#34;
+        mods = self.options.QUERY_MODIFIERS
+        default_limit = dig(thaw(mods), &#34;_default&#34;, &#34;limit&#34;) or 30
+        default_conditions = dig(thaw(mods), &#34;_default&#34;, &#34;conditions&#34;) or list()
+
+        non_specified_entrypoints = operator.sub(
+            set([t.name for t in self.relation_dag.entrypoints]), set(mods.keys()),
+        )
+        if non_specified_entrypoints:
+            logger.warning(
+                &#34;Entrypoints are advised to be added as query modifiers. &#34;
+                &#34;They define what the final sample will look like&#34;
+            )
+            logger.warning(
+                &#34;These entrypoints are not specified: {}&#34;, non_specified_entrypoints,
+            )
+
+        modifiers = {}
+        for table in self.relation_dag.tables:
+            if table.name not in mods:
+                limit = default_limit
+                conditions = default_conditions
+
+            else:
+                limit, conditions = (
+                    mods[table.name].get(&#34;limit&#34;),
+                    mods[table.name].get(&#34;conditions&#34;),
+                )
+                if not limit and not conditions:
+                    logger.warning(&#34;QUERY_MODIFIER for {} malformed.&#34;, table.name)
+                    continue
+
+                limit = limit or default_limit
+                conditions = conditions or default_conditions
+
+            modifiers[table] = {&#34;limit&#34;: limit, &#34;conditions&#34;: conditions}
+
+        return modifiers
+
+    @property
+    @lru_cache()
+    def relation_dag(self) -&gt; RelationDAG:
+        logger.info(&#34;Building the database graph&#34;)
+        return RelationDAG.load(
+            self.source_database,
+            extend_relations=self.extend_relations,
+            ignore_relations=self.ignore_relations,
+            ignore_tables=self.ignore_tables,
+        )
+
+    @property
+    def samples(self) -&gt; Iterable[Table]:
+        logger.info(&#34;Starting sampling&#34;)
+        return TableSample.sample_dag(
+            self.source_database,
+            self.relation_dag,
+            self.query_modifiers,
+            self.output_directory,
+        )
+
+    @property
+    @lru_cache()
+    def column_by_name(self):
+        return {
+            f&#34;{column.table.name}.{column.name}&#34;: column
+            for columns in [
+                table.columns for table in self.source_database.tables.__dict__.values()
+            ]
+            for column in columns
+        }
+
+    def copy_schema(self):
+        logger.info(&#34;Copying schema&#34;)
+        self.target_database.load_schema(self.source_database)
+        return self
+
+    def copy_sample(self):
+        logger.info(&#34;Loading sample into target&#34;)
+        self.target_database.load_samples(self.output_directory, self.samples)
+        return self
+
+    def _instanciate_database(self, var):
+        &#34;&#34;&#34;
+        Helper method to instanciate a database method
+        Scenographer will read a postgres url from the config
+        and try to connect with that database.
+        Abort if any any issue arises!
+        &#34;&#34;&#34;
+        try:
+            database_url = self.options._asdict()[var]
+            return Database(database_url).test_conn()
+        except sqlalchemy.exc.ArgumentError:
+            logger.error(&#34;Error connecting to {}&#34;, var)
+            sys.exit(1)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.tuple</li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="scenographer.scenographer.Scenographer.column_by_name"><code class="name">var <span class="ident">column_by_name</span></code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+@lru_cache()
+def column_by_name(self):
+    return {
+        f&#34;{column.table.name}.{column.name}&#34;: column
+        for columns in [
+            table.columns for table in self.source_database.tables.__dict__.values()
+        ]
+        for column in columns
+    }</code></pre>
+</details>
+</dd>
+<dt id="scenographer.scenographer.Scenographer.extend_relations"><code class="name">var <span class="ident">extend_relations</span></code></dt>
+<dd>
+<section class="desc"><p>EXTEND_RELATIONS key.
+Scenographer will recognize the relations specified here,
+in addition to those specified by database constraints.
+This method will return the equivalent Relation instances</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+@lru_cache()
+def extend_relations(self) -&gt; Iterable[Relation]:
+    &#34;&#34;&#34;
+    EXTEND_RELATIONS key.
+    Scenographer will recognize the relations specified here,
+    in addition to those specified by database constraints.
+    This method will return the equivalent Relation instances
+    &#34;&#34;&#34;
+    relations = []
+    for relation in self.options.EXTEND_RELATIONS:
+        try:
+            relations.append(
+                Relation(
+                    pk=self.column_by_name[relation[&#34;pk&#34;]],
+                    fk=self.column_by_name[relation[&#34;fk&#34;]],
+                )
+            )
+        except KeyError:
+            logger.warning(&#34;Can&#39;t match relation {}. Skipping.&#34;, dict(relation))
+            continue
+
+    return relations</code></pre>
+</details>
+</dd>
+<dt id="scenographer.scenographer.Scenographer.ignore_relations"><code class="name">var <span class="ident">ignore_relations</span></code></dt>
+<dd>
+<section class="desc"><p>IGNORE_RELATIONS key.
+Scenographer will not recognize the relations specified here.
+This method will return the equivalent Relation instances</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+@lru_cache()
+def ignore_relations(self) -&gt; Iterable[Relation]:
+    &#34;&#34;&#34;
+    IGNORE_RELATIONS key.
+    Scenographer will not recognize the relations specified here.
+    This method will return the equivalent Relation instances
+    &#34;&#34;&#34;
+    relations = []
+    for relation in self.options.IGNORE_RELATIONS:
+        try:
+            relations.append(
+                Relation(
+                    pk=self.column_by_name[relation[&#34;pk&#34;]],
+                    fk=self.column_by_name[relation[&#34;fk&#34;]],
+                )
+            )
+        except KeyError:
+            logger.warning(&#34;Can&#39;t match relation {}. Skipping.&#34;, relation)
+            continue
+
+    return relations</code></pre>
+</details>
+</dd>
+<dt id="scenographer.scenographer.Scenographer.ignore_tables"><code class="name">var <span class="ident">ignore_tables</span></code></dt>
+<dd>
+<section class="desc"><p>IGNORE_TABLES key.
+Scenographer will not sample any data coming from these tables.
+This method will return the equivalent Table instances
+(binded to source_database)</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+@lru_cache()
+def ignore_tables(self) -&gt; Iterable[Table]:
+    &#34;&#34;&#34;
+    IGNORE_TABLES key.
+    Scenographer will not sample any data coming from these tables.
+    This method will return the equivalent Table instances
+    (binded to source_database)
+    &#34;&#34;&#34;
+    ignored_tables = []
+    for table_name in self.options.IGNORE_TABLES:
+        if table_name in self.source_database.tables.__dict__:
+            ignored_tables.append(getattr(self.source_database.tables, table_name))
+        else:
+            logger.warning(&#34;Can&#39;t find table {}. Skipping.&#34;, table_name)
+    return ignored_tables</code></pre>
+</details>
+</dd>
+<dt id="scenographer.scenographer.Scenographer.options"><code class="name">var <span class="ident">options</span></code></dt>
+<dd>
+<section class="desc"><p>Alias for field number 0</p></section>
+</dd>
+<dt id="scenographer.scenographer.Scenographer.output_directory"><code class="name">var <span class="ident">output_directory</span></code></dt>
+<dd>
+<section class="desc"><p>SOURCE_DATABASE_URL key.
+Abort if any any issue arises!</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+@lru_cache()
+def output_directory(self) -&gt; Path:
+    &#34;&#34;&#34;
+    SOURCE_DATABASE_URL key.
+    Abort if any any issue arises!
+    &#34;&#34;&#34;
+    if not self.options.OUTPUT_DIRECTORY:
+        directory = mkdtemp(prefix=&#34;sample-&#34;)
+        logger.info(
+            &#34;Output directory unspecified. &#34;
+            &#34;Saving samples in temporary directory {}&#34;,
+            directory,
+        )
+    else:
+        directory = self.options.OUTPUT_DIRECTORY
+        try:
+            os.mkdir(directory)
+        except FileExistsError:
+            logger.error(
+                &#34;Error creating output directory {}. &#34;
+                &#34;Make sure there&#39;s nothing there. &#34;
+                &#34;Aborting.&#34;,
+                directory,
+            )
+            sys.exit(1)
+
+    return Path(directory)</code></pre>
+</details>
+</dd>
+<dt id="scenographer.scenographer.Scenographer.query_modifiers"><code class="name">var <span class="ident">query_modifiers</span></code></dt>
+<dd>
+<section class="desc"><p>QUERY_MODIFIERS key.
+Scenographer will take this key in account while sampling.
+This method will return the equivalent Table instances
+(binded to source_database)</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+@lru_cache()
+def query_modifiers(self) -&gt; Mapping[Table, Mapping[str, Any]]:
+    &#34;&#34;&#34;
+    QUERY_MODIFIERS key.
+    Scenographer will take this key in account while sampling.
+    This method will return the equivalent Table instances
+    (binded to source_database)
+    &#34;&#34;&#34;
+    mods = self.options.QUERY_MODIFIERS
+    default_limit = dig(thaw(mods), &#34;_default&#34;, &#34;limit&#34;) or 30
+    default_conditions = dig(thaw(mods), &#34;_default&#34;, &#34;conditions&#34;) or list()
+
+    non_specified_entrypoints = operator.sub(
+        set([t.name for t in self.relation_dag.entrypoints]), set(mods.keys()),
+    )
+    if non_specified_entrypoints:
+        logger.warning(
+            &#34;Entrypoints are advised to be added as query modifiers. &#34;
+            &#34;They define what the final sample will look like&#34;
+        )
+        logger.warning(
+            &#34;These entrypoints are not specified: {}&#34;, non_specified_entrypoints,
+        )
+
+    modifiers = {}
+    for table in self.relation_dag.tables:
+        if table.name not in mods:
+            limit = default_limit
+            conditions = default_conditions
+
+        else:
+            limit, conditions = (
+                mods[table.name].get(&#34;limit&#34;),
+                mods[table.name].get(&#34;conditions&#34;),
+            )
+            if not limit and not conditions:
+                logger.warning(&#34;QUERY_MODIFIER for {} malformed.&#34;, table.name)
+                continue
+
+            limit = limit or default_limit
+            conditions = conditions or default_conditions
+
+        modifiers[table] = {&#34;limit&#34;: limit, &#34;conditions&#34;: conditions}
+
+    return modifiers</code></pre>
+</details>
+</dd>
+<dt id="scenographer.scenographer.Scenographer.relation_dag"><code class="name">var <span class="ident">relation_dag</span></code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+@lru_cache()
+def relation_dag(self) -&gt; RelationDAG:
+    logger.info(&#34;Building the database graph&#34;)
+    return RelationDAG.load(
+        self.source_database,
+        extend_relations=self.extend_relations,
+        ignore_relations=self.ignore_relations,
+        ignore_tables=self.ignore_tables,
+    )</code></pre>
+</details>
+</dd>
+<dt id="scenographer.scenographer.Scenographer.samples"><code class="name">var <span class="ident">samples</span></code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def samples(self) -&gt; Iterable[Table]:
+    logger.info(&#34;Starting sampling&#34;)
+    return TableSample.sample_dag(
+        self.source_database,
+        self.relation_dag,
+        self.query_modifiers,
+        self.output_directory,
+    )</code></pre>
+</details>
+</dd>
+<dt id="scenographer.scenographer.Scenographer.source_database"><code class="name">var <span class="ident">source_database</span></code></dt>
+<dd>
+<section class="desc"><p>SOURCE_DATABASE_URL key.
+Abort if any any issue arises!</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+@lru_cache()
+def source_database(self) -&gt; Database:
+    &#34;&#34;&#34;
+    SOURCE_DATABASE_URL key.
+    Abort if any any issue arises!
+    &#34;&#34;&#34;
+    return self._instanciate_database(&#34;SOURCE_DATABASE_URL&#34;)</code></pre>
+</details>
+</dd>
+<dt id="scenographer.scenographer.Scenographer.target_database"><code class="name">var <span class="ident">target_database</span></code></dt>
+<dd>
+<section class="desc"><p>TARGET_DATABASE_URL key.
+Abort if any any issue arises!</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def target_database(self) -&gt; Database:
+    &#34;&#34;&#34;
+    TARGET_DATABASE_URL key.
+    Abort if any any issue arises!
+    &#34;&#34;&#34;
+    return self._instanciate_database(&#34;TARGET_DATABASE_URL&#34;)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="scenographer.scenographer.Scenographer.copy_sample"><code class="name flex">
+<span>def <span class="ident">copy_sample</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def copy_sample(self):
+    logger.info(&#34;Loading sample into target&#34;)
+    self.target_database.load_samples(self.output_directory, self.samples)
+    return self</code></pre>
+</details>
+</dd>
+<dt id="scenographer.scenographer.Scenographer.copy_schema"><code class="name flex">
+<span>def <span class="ident">copy_schema</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def copy_schema(self):
+    logger.info(&#34;Copying schema&#34;)
+    self.target_database.load_schema(self.source_database)
+    return self</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="scenographer.scenographer.Settings"><code class="flex name class">
+<span>class <span class="ident">Settings</span></span>
+<span>(</span><span>SOURCE_DATABASE_URL, TARGET_DATABASE_URL, QUERY_MODIFIERS=pmap({}), IGNORE_TABLES=pvector([]), EXTEND_RELATIONS=pvector([]), IGNORE_RELATIONS=pvector([]), OUTPUT_DIRECTORY=None)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Settings(SOURCE_DATABASE_URL, TARGET_DATABASE_URL, QUERY_MODIFIERS, IGNORE_TABLES, EXTEND_RELATIONS, IGNORE_RELATIONS, OUTPUT_DIRECTORY)</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Settings(NamedTuple):
+    SOURCE_DATABASE_URL: str
+    TARGET_DATABASE_URL: str
+    QUERY_MODIFIERS: dict = freeze({})
+    IGNORE_TABLES: List[str] = freeze([])
+    EXTEND_RELATIONS: List[Mapping[str, str]] = freeze([])
+    IGNORE_RELATIONS: List[Mapping[str, str]] = freeze([])
+    OUTPUT_DIRECTORY: Optional[str] = None
+
+    @classmethod
+    def load(cls, path):
+        import commentjson
+
+        with open(path) as f:
+            data = commentjson.load(f)
+
+        return cls(**freeze(data))
+
+    @classmethod
+    @lru_cache()
+    def empty(cls):
+        return cls(
+            SOURCE_DATABASE_URL=&#34;&#34;,
+            TARGET_DATABASE_URL=&#34;&#34;,
+            IGNORE_TABLES=freeze([&#34;example1&#34;, &#34;migrations&#34;]),
+            EXTEND_RELATIONS=freeze(
+                [{&#34;pk&#34;: &#34;product.id&#34;, &#34;fk&#34;: &#34;product_ownership.product_id&#34;}]
+            ),
+            IGNORE_RELATIONS=freeze(
+                [{&#34;pk&#34;: &#34;product.id&#34;, &#34;fk&#34;: &#34;client.favorite_product_id&#34;}]
+            ),
+            QUERY_MODIFIERS=freeze(
+                {
+                    &#34;_default&#34;: {&#34;conditions&#34;: [], &#34;limit&#34;: 300},
+                    &#34;users&#34;: {&#34;conditions&#34;: [&#34;email ilike &#39;%@example.com&#39;&#34;]},
+                }
+            ),
+        )
+
+    @property
+    @lru_cache()
+    def json(self):
+        return json.dumps(
+            {k: thaw(v) for k, v in self._asdict().items()}, indent=4, sort_keys=True,
+        )</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.tuple</li>
+</ul>
+<h3>Static methods</h3>
+<dl>
+<dt id="scenographer.scenographer.Settings.empty"><code class="name flex">
+<span>def <span class="ident">empty</span></span>(<span>cls)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+@lru_cache()
+def empty(cls):
+    return cls(
+        SOURCE_DATABASE_URL=&#34;&#34;,
+        TARGET_DATABASE_URL=&#34;&#34;,
+        IGNORE_TABLES=freeze([&#34;example1&#34;, &#34;migrations&#34;]),
+        EXTEND_RELATIONS=freeze(
+            [{&#34;pk&#34;: &#34;product.id&#34;, &#34;fk&#34;: &#34;product_ownership.product_id&#34;}]
+        ),
+        IGNORE_RELATIONS=freeze(
+            [{&#34;pk&#34;: &#34;product.id&#34;, &#34;fk&#34;: &#34;client.favorite_product_id&#34;}]
+        ),
+        QUERY_MODIFIERS=freeze(
+            {
+                &#34;_default&#34;: {&#34;conditions&#34;: [], &#34;limit&#34;: 300},
+                &#34;users&#34;: {&#34;conditions&#34;: [&#34;email ilike &#39;%@example.com&#39;&#34;]},
+            }
+        ),
+    )</code></pre>
+</details>
+</dd>
+<dt id="scenographer.scenographer.Settings.load"><code class="name flex">
+<span>def <span class="ident">load</span></span>(<span>path)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def load(cls, path):
+    import commentjson
+
+    with open(path) as f:
+        data = commentjson.load(f)
+
+    return cls(**freeze(data))</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="scenographer.scenographer.Settings.EXTEND_RELATIONS"><code class="name">var <span class="ident">EXTEND_RELATIONS</span></code></dt>
+<dd>
+<section class="desc"><p>Alias for field number 4</p></section>
+</dd>
+<dt id="scenographer.scenographer.Settings.IGNORE_RELATIONS"><code class="name">var <span class="ident">IGNORE_RELATIONS</span></code></dt>
+<dd>
+<section class="desc"><p>Alias for field number 5</p></section>
+</dd>
+<dt id="scenographer.scenographer.Settings.IGNORE_TABLES"><code class="name">var <span class="ident">IGNORE_TABLES</span></code></dt>
+<dd>
+<section class="desc"><p>Alias for field number 3</p></section>
+</dd>
+<dt id="scenographer.scenographer.Settings.OUTPUT_DIRECTORY"><code class="name">var <span class="ident">OUTPUT_DIRECTORY</span></code></dt>
+<dd>
+<section class="desc"><p>Alias for field number 6</p></section>
+</dd>
+<dt id="scenographer.scenographer.Settings.QUERY_MODIFIERS"><code class="name">var <span class="ident">QUERY_MODIFIERS</span></code></dt>
+<dd>
+<section class="desc"><p>Alias for field number 2</p></section>
+</dd>
+<dt id="scenographer.scenographer.Settings.SOURCE_DATABASE_URL"><code class="name">var <span class="ident">SOURCE_DATABASE_URL</span></code></dt>
+<dd>
+<section class="desc"><p>Alias for field number 0</p></section>
+</dd>
+<dt id="scenographer.scenographer.Settings.TARGET_DATABASE_URL"><code class="name">var <span class="ident">TARGET_DATABASE_URL</span></code></dt>
+<dd>
+<section class="desc"><p>Alias for field number 1</p></section>
+</dd>
+<dt id="scenographer.scenographer.Settings.json"><code class="name">var <span class="ident">json</span></code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+@lru_cache()
+def json(self):
+    return json.dumps(
+        {k: thaw(v) for k, v in self._asdict().items()}, indent=4, sort_keys=True,
+    )</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="scenographer" href="index.html">scenographer</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="scenographer.scenographer.Scenographer" href="#scenographer.scenographer.Scenographer">Scenographer</a></code></h4>
+<ul class="two-column">
+<li><code><a title="scenographer.scenographer.Scenographer.column_by_name" href="#scenographer.scenographer.Scenographer.column_by_name">column_by_name</a></code></li>
+<li><code><a title="scenographer.scenographer.Scenographer.copy_sample" href="#scenographer.scenographer.Scenographer.copy_sample">copy_sample</a></code></li>
+<li><code><a title="scenographer.scenographer.Scenographer.copy_schema" href="#scenographer.scenographer.Scenographer.copy_schema">copy_schema</a></code></li>
+<li><code><a title="scenographer.scenographer.Scenographer.extend_relations" href="#scenographer.scenographer.Scenographer.extend_relations">extend_relations</a></code></li>
+<li><code><a title="scenographer.scenographer.Scenographer.ignore_relations" href="#scenographer.scenographer.Scenographer.ignore_relations">ignore_relations</a></code></li>
+<li><code><a title="scenographer.scenographer.Scenographer.ignore_tables" href="#scenographer.scenographer.Scenographer.ignore_tables">ignore_tables</a></code></li>
+<li><code><a title="scenographer.scenographer.Scenographer.options" href="#scenographer.scenographer.Scenographer.options">options</a></code></li>
+<li><code><a title="scenographer.scenographer.Scenographer.output_directory" href="#scenographer.scenographer.Scenographer.output_directory">output_directory</a></code></li>
+<li><code><a title="scenographer.scenographer.Scenographer.query_modifiers" href="#scenographer.scenographer.Scenographer.query_modifiers">query_modifiers</a></code></li>
+<li><code><a title="scenographer.scenographer.Scenographer.relation_dag" href="#scenographer.scenographer.Scenographer.relation_dag">relation_dag</a></code></li>
+<li><code><a title="scenographer.scenographer.Scenographer.samples" href="#scenographer.scenographer.Scenographer.samples">samples</a></code></li>
+<li><code><a title="scenographer.scenographer.Scenographer.source_database" href="#scenographer.scenographer.Scenographer.source_database">source_database</a></code></li>
+<li><code><a title="scenographer.scenographer.Scenographer.target_database" href="#scenographer.scenographer.Scenographer.target_database">target_database</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="scenographer.scenographer.Settings" href="#scenographer.scenographer.Settings">Settings</a></code></h4>
+<ul class="two-column">
+<li><code><a title="scenographer.scenographer.Settings.EXTEND_RELATIONS" href="#scenographer.scenographer.Settings.EXTEND_RELATIONS">EXTEND_RELATIONS</a></code></li>
+<li><code><a title="scenographer.scenographer.Settings.IGNORE_RELATIONS" href="#scenographer.scenographer.Settings.IGNORE_RELATIONS">IGNORE_RELATIONS</a></code></li>
+<li><code><a title="scenographer.scenographer.Settings.IGNORE_TABLES" href="#scenographer.scenographer.Settings.IGNORE_TABLES">IGNORE_TABLES</a></code></li>
+<li><code><a title="scenographer.scenographer.Settings.OUTPUT_DIRECTORY" href="#scenographer.scenographer.Settings.OUTPUT_DIRECTORY">OUTPUT_DIRECTORY</a></code></li>
+<li><code><a title="scenographer.scenographer.Settings.QUERY_MODIFIERS" href="#scenographer.scenographer.Settings.QUERY_MODIFIERS">QUERY_MODIFIERS</a></code></li>
+<li><code><a title="scenographer.scenographer.Settings.SOURCE_DATABASE_URL" href="#scenographer.scenographer.Settings.SOURCE_DATABASE_URL">SOURCE_DATABASE_URL</a></code></li>
+<li><code><a title="scenographer.scenographer.Settings.TARGET_DATABASE_URL" href="#scenographer.scenographer.Settings.TARGET_DATABASE_URL">TARGET_DATABASE_URL</a></code></li>
+<li><code><a title="scenographer.scenographer.Settings.empty" href="#scenographer.scenographer.Settings.empty">empty</a></code></li>
+<li><code><a title="scenographer.scenographer.Settings.json" href="#scenographer.scenographer.Settings.json">json</a></code></li>
+<li><code><a title="scenographer.scenographer.Settings.load" href="#scenographer.scenographer.Settings.load">load</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.5</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
