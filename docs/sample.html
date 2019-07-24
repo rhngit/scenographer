@@ -1,0 +1,848 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.5" />
+<title>scenographer.sample API documentation</title>
+<meta name="description" content="TableSample" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>scenographer.sample</code></h1>
+</header>
+<section id="section-intro">
+<p>TableSample</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;TableSample&#34;
+
+import os
+import sys
+from csv import DictReader, field_size_limit
+from functools import lru_cache
+from pathlib import Path
+from typing import Any, Iterable, List, NamedTuple
+
+from loguru import logger
+from pyrsistent import freeze
+from sqlalchemy import select, text
+from sqlalchemy.dialects import postgresql
+from sqlalchemy.schema import Column, Table
+from sqlalchemy.sql.expression import Select
+
+from scenographer.database import Database
+from scenographer.relations import RelationDAG
+
+
+class TableSample(NamedTuple):
+    &#34;&#34;&#34;
+    TableSample is a wrapper around the operations
+    to sample a single table
+    &#34;&#34;&#34;
+
+    key_database = Database(&#34;sqlite://&#34;)
+
+    table: Table
+    conditions: Iterable[str]
+    limit: int
+
+    @classmethod
+    def sample_dag(
+        cls,
+        source_database: Database,
+        relations: RelationDAG,
+        query_modifiers: Any,
+        directory: Path,
+    ) -&gt; List[&#34;TableSample&#34;]:
+        &#34;Samples a database according to its relation graph&#34;
+
+        # Change current working dir to our output directory
+        # This way we avoid TableSample instances containing that information
+        os.chdir(directory)
+
+        # Prepare the sqlite db
+        relations.key_schema.drop_all(cls.key_database.engine)
+        relations.key_schema.create_all(cls.key_database.engine)
+
+        samples = []
+        for table in relations.topologically_sorted:
+            sample = cls(
+                table,
+                conditions=freeze(query_modifiers[table][&#34;conditions&#34;]),
+                limit=query_modifiers[table][&#34;limit&#34;],
+            ).sample(source_database)
+
+            samples.append(sample.table)
+        return samples
+
+    # @classmethod
+    # @lru_cache()
+    # def key_database(cls, relations) -&gt; Database:
+    #     return Database(&#34;sqlite://&#34;)
+
+    @property
+    @lru_cache(None)
+    def key_table(self) -&gt; Table:
+        &#34;&#34;&#34;
+        Returns the table with the associated metadata
+        tied to the key database
+        &#34;&#34;&#34;
+        return getattr(self.key_database.tables, self.table.name)
+
+    @property
+    @lru_cache(None)
+    def source_table(self) -&gt; Table:
+        &#34;&#34;&#34;
+        Returns the table with the associated metadata
+        tied to the source database
+        &#34;&#34;&#34;
+        return self.table
+
+    @property
+    @lru_cache(None)
+    def key_columns(self) -&gt; Iterable[Column]:
+        &#34;&#34;&#34;
+        Property defining the columns of the key database:
+        the primary_keys and foreign_keys of each table
+        &#34;&#34;&#34;
+        return self.key_table.columns
+
+    @property
+    @lru_cache(None)
+    def foreign_keys(self) -&gt; Iterable[Column]:
+        &#34;&#34;&#34;
+        Returns the foreign keys of the table by listing
+        the key columns and excluding any primary_key
+        &#34;&#34;&#34;
+        return [c for c in self.key_columns if not c.primary_key]
+
+    @property
+    @lru_cache(None)
+    def is_entrypoint(self) -&gt; bool:
+        &#34;&#34;&#34;
+        Property defining if the table has foreign_keys.
+        If it is false it means it has no dependencies.
+        &#34;&#34;&#34;
+        return not bool(list(self.foreign_keys))
+
+    @property
+    @lru_cache(None)
+    def query(self) -&gt; Select:
+        &#34;SQLAlchemy query object for the sampling query&#34;
+        query = self.table.select()
+        for condition in self.conditions:
+            query = query.where(text(condition))
+
+        if not self.is_entrypoint:
+            query = self.follow_conditions(query)
+
+        query = query.limit(self.limit)
+
+        return query
+
+    def follow_conditions(self, query: Select) -&gt; Select:
+        &#34;Append WHERE clauses to restrict the rows depending on the data already extracted&#34;
+        foreign_key: Column
+        primary_key: Column
+
+        # For each foreign_key, build a where clause in the form of:
+        #   WHERE sometable_id in (&lt;select id from sometable&gt;)
+        # The subquery is executed on the key database and its results are
+        # parametrized into the final query.
+        for foreign_key in self.foreign_keys:
+
+            primary_key = iter(foreign_key.foreign_keys).__next__().column
+            pk_data = self.key_database.execute_return_list(select([primary_key]))
+            source_fk = getattr(self.source_table.c, foreign_key.name)
+
+            if pk_data:
+                query = query.where(
+                    source_fk.in_(pk_data) | source_fk.is_(None)
+                ).order_by(source_fk.nullslast())
+            else:
+                query = query.where(source_fk.is_(None))
+
+        return query
+
+    @property
+    @lru_cache(None)
+    def sql(self) -&gt; str:
+        &#34;Raw SQL representation of the sampling query&#34;
+        complete_query = self.query.compile(
+            dialect=postgresql.dialect(), compile_kwargs={&#34;literal_binds&#34;: True}
+        ).__str__()
+
+        # Sampling requires we always extract all the columns, but
+        # complete_query comes with the entire columns list.
+        # So let&#39;s replace the column list with a wildcard:
+        query_str = &#34;SELECT * &#34; + complete_query[complete_query.index(&#34;FROM&#34;) :]
+        return query_str
+
+    @property
+    @lru_cache(None)
+    def persisted_records_path(self) -&gt; Path:
+        &#34;&#34;&#34;
+        The path for the csv file for the data to be written in
+        Relative to classmethod `sample_dag` directory argument.
+        &#34;&#34;&#34;
+        return Path(self.table.name).with_suffix(&#34;.csv&#34;)
+
+    def persist_keys(self) -&gt; None:
+        &#34;Insert retrieved keys from the table csv file into the sqlite key database.&#34;
+        with self.persisted_records_path.open(newline=&#34;&#34;) as csv_file:
+            keys = [
+                {key.name: persisted_record[key.name] for key in self.key_columns}
+                for persisted_record in DictReader(csv_file)
+            ]
+            logger.debug(&#34;Got {} records for {}.&#34;, len(keys), self.table.name)
+
+        if keys:
+            self.key_database.execute(self.key_table.insert(), keys)
+
+    def persist_records(self, source_database) -&gt; None:
+        &#34;Insert retrieved rows into persisted_records_path&#34;
+        logger.trace(&#34;Querying {}\n{}&#34;, self.table.name, self.sql)
+
+        with self.persisted_records_path.open(&#34;a+&#34;) as csv_file:
+            source_database.copy_to_csv(csv_file, self.query)
+
+    def sample(self, source_database):
+        &#34;Samples the table&#34;
+        self.persist_records(source_database)
+        self.persist_keys()
+
+        return self
+
+
+def increase_csv_limit():
+    &#34;&#34;&#34;
+    This is needed, due to default limits.
+    Taken from https://stackoverflow.com/a/15063941
+    &#34;&#34;&#34;
+    max_int = sys.maxsize
+
+    while True:
+        # decrease the max_int value by factor 10
+        # as long as the OverflowError occurs.
+
+        try:
+            field_size_limit(max_int)
+            break
+        except OverflowError:
+            max_int = int(max_int / 10)
+
+
+increase_csv_limit()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="scenographer.sample.increase_csv_limit"><code class="name flex">
+<span>def <span class="ident">increase_csv_limit</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>This is needed, due to default limits.
+Taken from <a href="https://stackoverflow.com/a/15063941">https://stackoverflow.com/a/15063941</a></p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def increase_csv_limit():
+    &#34;&#34;&#34;
+    This is needed, due to default limits.
+    Taken from https://stackoverflow.com/a/15063941
+    &#34;&#34;&#34;
+    max_int = sys.maxsize
+
+    while True:
+        # decrease the max_int value by factor 10
+        # as long as the OverflowError occurs.
+
+        try:
+            field_size_limit(max_int)
+            break
+        except OverflowError:
+            max_int = int(max_int / 10)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="scenographer.sample.TableSample"><code class="flex name class">
+<span>class <span class="ident">TableSample</span></span>
+<span>(</span><span>table, conditions, limit)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>TableSample is a wrapper around the operations
+to sample a single table</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TableSample(NamedTuple):
+    &#34;&#34;&#34;
+    TableSample is a wrapper around the operations
+    to sample a single table
+    &#34;&#34;&#34;
+
+    key_database = Database(&#34;sqlite://&#34;)
+
+    table: Table
+    conditions: Iterable[str]
+    limit: int
+
+    @classmethod
+    def sample_dag(
+        cls,
+        source_database: Database,
+        relations: RelationDAG,
+        query_modifiers: Any,
+        directory: Path,
+    ) -&gt; List[&#34;TableSample&#34;]:
+        &#34;Samples a database according to its relation graph&#34;
+
+        # Change current working dir to our output directory
+        # This way we avoid TableSample instances containing that information
+        os.chdir(directory)
+
+        # Prepare the sqlite db
+        relations.key_schema.drop_all(cls.key_database.engine)
+        relations.key_schema.create_all(cls.key_database.engine)
+
+        samples = []
+        for table in relations.topologically_sorted:
+            sample = cls(
+                table,
+                conditions=freeze(query_modifiers[table][&#34;conditions&#34;]),
+                limit=query_modifiers[table][&#34;limit&#34;],
+            ).sample(source_database)
+
+            samples.append(sample.table)
+        return samples
+
+    # @classmethod
+    # @lru_cache()
+    # def key_database(cls, relations) -&gt; Database:
+    #     return Database(&#34;sqlite://&#34;)
+
+    @property
+    @lru_cache(None)
+    def key_table(self) -&gt; Table:
+        &#34;&#34;&#34;
+        Returns the table with the associated metadata
+        tied to the key database
+        &#34;&#34;&#34;
+        return getattr(self.key_database.tables, self.table.name)
+
+    @property
+    @lru_cache(None)
+    def source_table(self) -&gt; Table:
+        &#34;&#34;&#34;
+        Returns the table with the associated metadata
+        tied to the source database
+        &#34;&#34;&#34;
+        return self.table
+
+    @property
+    @lru_cache(None)
+    def key_columns(self) -&gt; Iterable[Column]:
+        &#34;&#34;&#34;
+        Property defining the columns of the key database:
+        the primary_keys and foreign_keys of each table
+        &#34;&#34;&#34;
+        return self.key_table.columns
+
+    @property
+    @lru_cache(None)
+    def foreign_keys(self) -&gt; Iterable[Column]:
+        &#34;&#34;&#34;
+        Returns the foreign keys of the table by listing
+        the key columns and excluding any primary_key
+        &#34;&#34;&#34;
+        return [c for c in self.key_columns if not c.primary_key]
+
+    @property
+    @lru_cache(None)
+    def is_entrypoint(self) -&gt; bool:
+        &#34;&#34;&#34;
+        Property defining if the table has foreign_keys.
+        If it is false it means it has no dependencies.
+        &#34;&#34;&#34;
+        return not bool(list(self.foreign_keys))
+
+    @property
+    @lru_cache(None)
+    def query(self) -&gt; Select:
+        &#34;SQLAlchemy query object for the sampling query&#34;
+        query = self.table.select()
+        for condition in self.conditions:
+            query = query.where(text(condition))
+
+        if not self.is_entrypoint:
+            query = self.follow_conditions(query)
+
+        query = query.limit(self.limit)
+
+        return query
+
+    def follow_conditions(self, query: Select) -&gt; Select:
+        &#34;Append WHERE clauses to restrict the rows depending on the data already extracted&#34;
+        foreign_key: Column
+        primary_key: Column
+
+        # For each foreign_key, build a where clause in the form of:
+        #   WHERE sometable_id in (&lt;select id from sometable&gt;)
+        # The subquery is executed on the key database and its results are
+        # parametrized into the final query.
+        for foreign_key in self.foreign_keys:
+
+            primary_key = iter(foreign_key.foreign_keys).__next__().column
+            pk_data = self.key_database.execute_return_list(select([primary_key]))
+            source_fk = getattr(self.source_table.c, foreign_key.name)
+
+            if pk_data:
+                query = query.where(
+                    source_fk.in_(pk_data) | source_fk.is_(None)
+                ).order_by(source_fk.nullslast())
+            else:
+                query = query.where(source_fk.is_(None))
+
+        return query
+
+    @property
+    @lru_cache(None)
+    def sql(self) -&gt; str:
+        &#34;Raw SQL representation of the sampling query&#34;
+        complete_query = self.query.compile(
+            dialect=postgresql.dialect(), compile_kwargs={&#34;literal_binds&#34;: True}
+        ).__str__()
+
+        # Sampling requires we always extract all the columns, but
+        # complete_query comes with the entire columns list.
+        # So let&#39;s replace the column list with a wildcard:
+        query_str = &#34;SELECT * &#34; + complete_query[complete_query.index(&#34;FROM&#34;) :]
+        return query_str
+
+    @property
+    @lru_cache(None)
+    def persisted_records_path(self) -&gt; Path:
+        &#34;&#34;&#34;
+        The path for the csv file for the data to be written in
+        Relative to classmethod `sample_dag` directory argument.
+        &#34;&#34;&#34;
+        return Path(self.table.name).with_suffix(&#34;.csv&#34;)
+
+    def persist_keys(self) -&gt; None:
+        &#34;Insert retrieved keys from the table csv file into the sqlite key database.&#34;
+        with self.persisted_records_path.open(newline=&#34;&#34;) as csv_file:
+            keys = [
+                {key.name: persisted_record[key.name] for key in self.key_columns}
+                for persisted_record in DictReader(csv_file)
+            ]
+            logger.debug(&#34;Got {} records for {}.&#34;, len(keys), self.table.name)
+
+        if keys:
+            self.key_database.execute(self.key_table.insert(), keys)
+
+    def persist_records(self, source_database) -&gt; None:
+        &#34;Insert retrieved rows into persisted_records_path&#34;
+        logger.trace(&#34;Querying {}\n{}&#34;, self.table.name, self.sql)
+
+        with self.persisted_records_path.open(&#34;a+&#34;) as csv_file:
+            source_database.copy_to_csv(csv_file, self.query)
+
+    def sample(self, source_database):
+        &#34;Samples the table&#34;
+        self.persist_records(source_database)
+        self.persist_keys()
+
+        return self</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.tuple</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="scenographer.sample.TableSample.key_database"><code class="name">var <span class="ident">key_database</span></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+</dl>
+<h3>Static methods</h3>
+<dl>
+<dt id="scenographer.sample.TableSample.sample_dag"><code class="name flex">
+<span>def <span class="ident">sample_dag</span></span>(<span>source_database, relations, query_modifiers, directory)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Samples a database according to its relation graph</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def sample_dag(
+    cls,
+    source_database: Database,
+    relations: RelationDAG,
+    query_modifiers: Any,
+    directory: Path,
+) -&gt; List[&#34;TableSample&#34;]:
+    &#34;Samples a database according to its relation graph&#34;
+
+    # Change current working dir to our output directory
+    # This way we avoid TableSample instances containing that information
+    os.chdir(directory)
+
+    # Prepare the sqlite db
+    relations.key_schema.drop_all(cls.key_database.engine)
+    relations.key_schema.create_all(cls.key_database.engine)
+
+    samples = []
+    for table in relations.topologically_sorted:
+        sample = cls(
+            table,
+            conditions=freeze(query_modifiers[table][&#34;conditions&#34;]),
+            limit=query_modifiers[table][&#34;limit&#34;],
+        ).sample(source_database)
+
+        samples.append(sample.table)
+    return samples</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="scenographer.sample.TableSample.conditions"><code class="name">var <span class="ident">conditions</span></code></dt>
+<dd>
+<section class="desc"><p>Alias for field number 1</p></section>
+</dd>
+<dt id="scenographer.sample.TableSample.foreign_keys"><code class="name">var <span class="ident">foreign_keys</span></code></dt>
+<dd>
+<section class="desc"><p>Returns the foreign keys of the table by listing
+the key columns and excluding any primary_key</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+@lru_cache(None)
+def foreign_keys(self) -&gt; Iterable[Column]:
+    &#34;&#34;&#34;
+    Returns the foreign keys of the table by listing
+    the key columns and excluding any primary_key
+    &#34;&#34;&#34;
+    return [c for c in self.key_columns if not c.primary_key]</code></pre>
+</details>
+</dd>
+<dt id="scenographer.sample.TableSample.is_entrypoint"><code class="name">var <span class="ident">is_entrypoint</span></code></dt>
+<dd>
+<section class="desc"><p>Property defining if the table has foreign_keys.
+If it is false it means it has no dependencies.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+@lru_cache(None)
+def is_entrypoint(self) -&gt; bool:
+    &#34;&#34;&#34;
+    Property defining if the table has foreign_keys.
+    If it is false it means it has no dependencies.
+    &#34;&#34;&#34;
+    return not bool(list(self.foreign_keys))</code></pre>
+</details>
+</dd>
+<dt id="scenographer.sample.TableSample.key_columns"><code class="name">var <span class="ident">key_columns</span></code></dt>
+<dd>
+<section class="desc"><p>Property defining the columns of the key database:
+the primary_keys and foreign_keys of each table</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+@lru_cache(None)
+def key_columns(self) -&gt; Iterable[Column]:
+    &#34;&#34;&#34;
+    Property defining the columns of the key database:
+    the primary_keys and foreign_keys of each table
+    &#34;&#34;&#34;
+    return self.key_table.columns</code></pre>
+</details>
+</dd>
+<dt id="scenographer.sample.TableSample.key_table"><code class="name">var <span class="ident">key_table</span></code></dt>
+<dd>
+<section class="desc"><p>Returns the table with the associated metadata
+tied to the key database</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+@lru_cache(None)
+def key_table(self) -&gt; Table:
+    &#34;&#34;&#34;
+    Returns the table with the associated metadata
+    tied to the key database
+    &#34;&#34;&#34;
+    return getattr(self.key_database.tables, self.table.name)</code></pre>
+</details>
+</dd>
+<dt id="scenographer.sample.TableSample.limit"><code class="name">var <span class="ident">limit</span></code></dt>
+<dd>
+<section class="desc"><p>Alias for field number 2</p></section>
+</dd>
+<dt id="scenographer.sample.TableSample.persisted_records_path"><code class="name">var <span class="ident">persisted_records_path</span></code></dt>
+<dd>
+<section class="desc"><p>The path for the csv file for the data to be written in
+Relative to classmethod <code>sample_dag</code> directory argument.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+@lru_cache(None)
+def persisted_records_path(self) -&gt; Path:
+    &#34;&#34;&#34;
+    The path for the csv file for the data to be written in
+    Relative to classmethod `sample_dag` directory argument.
+    &#34;&#34;&#34;
+    return Path(self.table.name).with_suffix(&#34;.csv&#34;)</code></pre>
+</details>
+</dd>
+<dt id="scenographer.sample.TableSample.query"><code class="name">var <span class="ident">query</span></code></dt>
+<dd>
+<section class="desc"><p>SQLAlchemy query object for the sampling query</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+@lru_cache(None)
+def query(self) -&gt; Select:
+    &#34;SQLAlchemy query object for the sampling query&#34;
+    query = self.table.select()
+    for condition in self.conditions:
+        query = query.where(text(condition))
+
+    if not self.is_entrypoint:
+        query = self.follow_conditions(query)
+
+    query = query.limit(self.limit)
+
+    return query</code></pre>
+</details>
+</dd>
+<dt id="scenographer.sample.TableSample.source_table"><code class="name">var <span class="ident">source_table</span></code></dt>
+<dd>
+<section class="desc"><p>Returns the table with the associated metadata
+tied to the source database</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+@lru_cache(None)
+def source_table(self) -&gt; Table:
+    &#34;&#34;&#34;
+    Returns the table with the associated metadata
+    tied to the source database
+    &#34;&#34;&#34;
+    return self.table</code></pre>
+</details>
+</dd>
+<dt id="scenographer.sample.TableSample.sql"><code class="name">var <span class="ident">sql</span></code></dt>
+<dd>
+<section class="desc"><p>Raw SQL representation of the sampling query</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+@lru_cache(None)
+def sql(self) -&gt; str:
+    &#34;Raw SQL representation of the sampling query&#34;
+    complete_query = self.query.compile(
+        dialect=postgresql.dialect(), compile_kwargs={&#34;literal_binds&#34;: True}
+    ).__str__()
+
+    # Sampling requires we always extract all the columns, but
+    # complete_query comes with the entire columns list.
+    # So let&#39;s replace the column list with a wildcard:
+    query_str = &#34;SELECT * &#34; + complete_query[complete_query.index(&#34;FROM&#34;) :]
+    return query_str</code></pre>
+</details>
+</dd>
+<dt id="scenographer.sample.TableSample.table"><code class="name">var <span class="ident">table</span></code></dt>
+<dd>
+<section class="desc"><p>Alias for field number 0</p></section>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="scenographer.sample.TableSample.follow_conditions"><code class="name flex">
+<span>def <span class="ident">follow_conditions</span></span>(<span>self, query)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Append WHERE clauses to restrict the rows depending on the data already extracted</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def follow_conditions(self, query: Select) -&gt; Select:
+    &#34;Append WHERE clauses to restrict the rows depending on the data already extracted&#34;
+    foreign_key: Column
+    primary_key: Column
+
+    # For each foreign_key, build a where clause in the form of:
+    #   WHERE sometable_id in (&lt;select id from sometable&gt;)
+    # The subquery is executed on the key database and its results are
+    # parametrized into the final query.
+    for foreign_key in self.foreign_keys:
+
+        primary_key = iter(foreign_key.foreign_keys).__next__().column
+        pk_data = self.key_database.execute_return_list(select([primary_key]))
+        source_fk = getattr(self.source_table.c, foreign_key.name)
+
+        if pk_data:
+            query = query.where(
+                source_fk.in_(pk_data) | source_fk.is_(None)
+            ).order_by(source_fk.nullslast())
+        else:
+            query = query.where(source_fk.is_(None))
+
+    return query</code></pre>
+</details>
+</dd>
+<dt id="scenographer.sample.TableSample.persist_keys"><code class="name flex">
+<span>def <span class="ident">persist_keys</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Insert retrieved keys from the table csv file into the sqlite key database.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def persist_keys(self) -&gt; None:
+    &#34;Insert retrieved keys from the table csv file into the sqlite key database.&#34;
+    with self.persisted_records_path.open(newline=&#34;&#34;) as csv_file:
+        keys = [
+            {key.name: persisted_record[key.name] for key in self.key_columns}
+            for persisted_record in DictReader(csv_file)
+        ]
+        logger.debug(&#34;Got {} records for {}.&#34;, len(keys), self.table.name)
+
+    if keys:
+        self.key_database.execute(self.key_table.insert(), keys)</code></pre>
+</details>
+</dd>
+<dt id="scenographer.sample.TableSample.persist_records"><code class="name flex">
+<span>def <span class="ident">persist_records</span></span>(<span>self, source_database)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Insert retrieved rows into persisted_records_path</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def persist_records(self, source_database) -&gt; None:
+    &#34;Insert retrieved rows into persisted_records_path&#34;
+    logger.trace(&#34;Querying {}\n{}&#34;, self.table.name, self.sql)
+
+    with self.persisted_records_path.open(&#34;a+&#34;) as csv_file:
+        source_database.copy_to_csv(csv_file, self.query)</code></pre>
+</details>
+</dd>
+<dt id="scenographer.sample.TableSample.sample"><code class="name flex">
+<span>def <span class="ident">sample</span></span>(<span>self, source_database)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Samples the table</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def sample(self, source_database):
+    &#34;Samples the table&#34;
+    self.persist_records(source_database)
+    self.persist_keys()
+
+    return self</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="scenographer" href="index.html">scenographer</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="scenographer.sample.increase_csv_limit" href="#scenographer.sample.increase_csv_limit">increase_csv_limit</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="scenographer.sample.TableSample" href="#scenographer.sample.TableSample">TableSample</a></code></h4>
+<ul class="">
+<li><code><a title="scenographer.sample.TableSample.conditions" href="#scenographer.sample.TableSample.conditions">conditions</a></code></li>
+<li><code><a title="scenographer.sample.TableSample.follow_conditions" href="#scenographer.sample.TableSample.follow_conditions">follow_conditions</a></code></li>
+<li><code><a title="scenographer.sample.TableSample.foreign_keys" href="#scenographer.sample.TableSample.foreign_keys">foreign_keys</a></code></li>
+<li><code><a title="scenographer.sample.TableSample.is_entrypoint" href="#scenographer.sample.TableSample.is_entrypoint">is_entrypoint</a></code></li>
+<li><code><a title="scenographer.sample.TableSample.key_columns" href="#scenographer.sample.TableSample.key_columns">key_columns</a></code></li>
+<li><code><a title="scenographer.sample.TableSample.key_database" href="#scenographer.sample.TableSample.key_database">key_database</a></code></li>
+<li><code><a title="scenographer.sample.TableSample.key_table" href="#scenographer.sample.TableSample.key_table">key_table</a></code></li>
+<li><code><a title="scenographer.sample.TableSample.limit" href="#scenographer.sample.TableSample.limit">limit</a></code></li>
+<li><code><a title="scenographer.sample.TableSample.persist_keys" href="#scenographer.sample.TableSample.persist_keys">persist_keys</a></code></li>
+<li><code><a title="scenographer.sample.TableSample.persist_records" href="#scenographer.sample.TableSample.persist_records">persist_records</a></code></li>
+<li><code><a title="scenographer.sample.TableSample.persisted_records_path" href="#scenographer.sample.TableSample.persisted_records_path">persisted_records_path</a></code></li>
+<li><code><a title="scenographer.sample.TableSample.query" href="#scenographer.sample.TableSample.query">query</a></code></li>
+<li><code><a title="scenographer.sample.TableSample.sample" href="#scenographer.sample.TableSample.sample">sample</a></code></li>
+<li><code><a title="scenographer.sample.TableSample.sample_dag" href="#scenographer.sample.TableSample.sample_dag">sample_dag</a></code></li>
+<li><code><a title="scenographer.sample.TableSample.source_table" href="#scenographer.sample.TableSample.source_table">source_table</a></code></li>
+<li><code><a title="scenographer.sample.TableSample.sql" href="#scenographer.sample.TableSample.sql">sql</a></code></li>
+<li><code><a title="scenographer.sample.TableSample.table" href="#scenographer.sample.TableSample.table">table</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.5</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

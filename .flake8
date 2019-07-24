@@ -1,0 +1,6 @@
+[flake8]
+ignore =
+  E501, # Line too long.
+  E203, # Required to handle black-fmt
+  W503  # Required to handle black-fmt
+exclude = .git,__pycache__
