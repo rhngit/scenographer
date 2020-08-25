@@ -18,6 +18,12 @@ jobs:
             - "/home/circleci/.cache/pypoetry/virtualenvs"
       - run:
           command:
+            poetry run scenographer --help
+      - run:
+          command:
+            poetry run scenographer empty-config
+      - run:
+          command:
             poetry run black --check .
       - run:
           command:
@@ -29,11 +35,11 @@ jobs:
           command:
             poetry run pylint scenographer
       - run:
-          command:
-            poetry run scenographer --help
-      - run:
-          command:
-            poetry run scenographer empty-config
+          name: "Check if documentation is up-to-date."
+          command: |
+            poetry run pdoc --force --html --output-dir tmpdocs scenographer
+            diff tmpdocs/scenographer docs/ -r
+
 
   deployment:
     docker:
