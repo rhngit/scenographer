@@ -4,7 +4,7 @@ build-backend = "poetry.masonry.api"
 
 [tool.poetry]
 name = "scenographer"
-version = "0.1.0"
+version = "0.1.1"
 description = "The cool dude who sets up the stage. Word."
 authors = ["Xavier Francisco <xavier@zyper.com>"]
 readme = 'README.md'
