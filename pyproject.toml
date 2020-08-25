@@ -7,6 +7,11 @@ name = "scenographer"
 version = "0.1.0"
 description = "The cool dude who sets up the stage. Word."
 authors = ["Xavier Francisco <xavier@zyper.com>"]
+readme = 'README.md'
+keywords = ["postgres", "subset", "sample"]
+homepage = "https://zyperco.github.io/scenographer/"
+documentation = "https://zyperco.github.io/scenographer/"
+repository = "https://github.com/zyperco/scenographer/"
 
 [tool.poetry.dependencies]
 python = "^3.8"
