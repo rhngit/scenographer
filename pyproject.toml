@@ -29,7 +29,7 @@ dict-digger = "^0.2.1"
 
 [tool.poetry.dev-dependencies]
 ipython = "^7.10.1"
-pdoc3 = "^0.7.2"
+pdoc3 = "^0.8.4"
 pre-commit = "^1.20.0"
 pylint = "^2.6.0"
 pytest = "^6.0.1"
