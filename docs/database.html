@@ -3,15 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.7.5" />
+<meta name="generator" content="pdoc 0.8.4" />
 <title>scenographer.database API documentation</title>
 <meta name="description" content="Module to connect with database" />
-<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
-<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
-<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
-<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
 </head>
 <body>
 <main>
@@ -205,10 +207,10 @@ class UUIDField(TypeDecorator):
 <dl>
 <dt id="scenographer.database.Database"><code class="flex name class">
 <span>class <span class="ident">Database</span></span>
-<span>(</span><span>database_url)</span>
+<span>(</span><span>database_url: str)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Wrapper around database operations</p></section>
+<div class="desc"><p>Wrapper around database operations</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -323,13 +325,13 @@ class UUIDField(TypeDecorator):
 </ul>
 <h3>Instance variables</h3>
 <dl>
-<dt id="scenographer.database.Database.database_url"><code class="name">var <span class="ident">database_url</span></code></dt>
+<dt id="scenographer.database.Database.database_url"><code class="name">var <span class="ident">database_url</span> : str</code></dt>
 <dd>
-<section class="desc"><p>Alias for field number 0</p></section>
+<div class="desc"><p>Alias for field number 0</p></div>
 </dd>
-<dt id="scenographer.database.Database.engine"><code class="name">var <span class="ident">engine</span></code></dt>
+<dt id="scenographer.database.Database.engine"><code class="name">var <span class="ident">engine</span> : sqlalchemy.engine.base.Engine</code></dt>
 <dd>
-<section class="desc"><p>Create, return and cache the associated sqlalchemy engine</p></section>
+<div class="desc"><p>Create, return and cache the associated sqlalchemy engine</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -341,9 +343,9 @@ def engine(self) -&gt; Engine:
     return sqlalchemy.create_engine(self.database_url)</code></pre>
 </details>
 </dd>
-<dt id="scenographer.database.Database.tables"><code class="name">var <span class="ident">tables</span></code></dt>
+<dt id="scenographer.database.Database.tables"><code class="name">var <span class="ident">tables</span> : types.SimpleNamespace</code></dt>
 <dd>
-<section class="desc"><p>Reflect the database to return and cache a namespace with all of its tables</p></section>
+<div class="desc"><p>Reflect the database to return and cache a namespace with all of its tables</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -365,10 +367,10 @@ def tables(self) -&gt; SimpleNamespace:
 <h3>Methods</h3>
 <dl>
 <dt id="scenographer.database.Database.copy_to_csv"><code class="name flex">
-<span>def <span class="ident">copy_to_csv</span></span>(<span>self, file, select)</span>
+<span>def <span class="ident">copy_to_csv</span></span>(<span>self, file: <class 'TextIO'>, select: sqlalchemy.sql.selectable.Select) ‑> NoneType</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Executes query and write the rows into a file object in CSV format.</p></section>
+<div class="desc"><p>Executes query and write the rows into a file object in CSV format.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -379,10 +381,10 @@ def tables(self) -&gt; SimpleNamespace:
 </details>
 </dd>
 <dt id="scenographer.database.Database.execute"><code class="name flex">
-<span>def <span class="ident">execute</span></span>(<span>self, *args, **kwargs)</span>
+<span>def <span class="ident">execute</span></span>(<span>self, *args, **kwargs) ‑> sqlalchemy.engine.result.ResultProxy</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Executes query and returns the usual ResultProxy from SQLAlchemy.</p></section>
+<div class="desc"><p>Executes query and returns the usual ResultProxy from SQLAlchemy.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -396,11 +398,11 @@ def tables(self) -&gt; SimpleNamespace:
 </details>
 </dd>
 <dt id="scenographer.database.Database.execute_return_dict"><code class="name flex">
-<span>def <span class="ident">execute_return_dict</span></span>(<span>self, *args, **kwargs)</span>
+<span>def <span class="ident">execute_return_dict</span></span>(<span>self, *args, **kwargs) ‑> List[Mapping[str, Any]]</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Executes query and returns each row as a dictionary;
-It raises an AssertionError if any column name is repeated.</p></section>
+<div class="desc"><p>Executes query and returns each row as a dictionary;
+It raises an AssertionError if any column name is repeated.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -423,11 +425,11 @@ It raises an AssertionError if any column name is repeated.</p></section>
 </details>
 </dd>
 <dt id="scenographer.database.Database.execute_return_list"><code class="name flex">
-<span>def <span class="ident">execute_return_list</span></span>(<span>self, *args, **kwargs)</span>
+<span>def <span class="ident">execute_return_list</span></span>(<span>self, *args, **kwargs) ‑> List[Any]</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Executes query and returns a list of the resulting values
-It raises an AssertionError if more than one column is returned</p></section>
+<div class="desc"><p>Executes query and returns a list of the resulting values
+It raises an AssertionError if more than one column is returned</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -449,10 +451,10 @@ It raises an AssertionError if more than one column is returned</p></section>
 </details>
 </dd>
 <dt id="scenographer.database.Database.load_samples"><code class="name flex">
-<span>def <span class="ident">load_samples</span></span>(<span>self, directory, samples)</span>
+<span>def <span class="ident">load_samples</span></span>(<span>self, directory: pathlib.Path, samples: Iterable[sqlalchemy.sql.schema.Table]) ‑> NoneType</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Copy the generated sample CSVs into the database</p></section>
+<div class="desc"><p>Copy the generated sample CSVs into the database</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -467,16 +469,16 @@ It raises an AssertionError if more than one column is returned</p></section>
 </details>
 </dd>
 <dt id="scenographer.database.Database.load_schema"><code class="name flex">
-<span>def <span class="ident">load_schema</span></span>(<span>self, source_database)</span>
+<span>def <span class="ident">load_schema</span></span>(<span>self, source_database: <a title="scenographer.database.Database" href="#scenographer.database.Database">Database</a>) ‑> NoneType</span>
 </code></dt>
 <dd>
-<section class="desc"><p>pg_dump
+<div class="desc"><p>pg_dump
 &ndash;format=custom &ndash;no-owner &ndash;schema-only
 &ndash;verbose {source_database}
 | pg_restore
 &ndash;format=custom &ndash;no-owner &ndash;schema-only
 &ndash;no-acl
-&ndash;verbose -d {target_database}</p></section>
+&ndash;verbose -d {target_database}</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -510,10 +512,10 @@ It raises an AssertionError if more than one column is returned</p></section>
 </details>
 </dd>
 <dt id="scenographer.database.Database.test_conn"><code class="name flex">
-<span>def <span class="ident">test_conn</span></span>(<span>self)</span>
+<span>def <span class="ident">test_conn</span></span>(<span>self) ‑> <a title="scenographer.database.Database" href="#scenographer.database.Database">Database</a></span>
 </code></dt>
 <dd>
-<section class="desc"><p>Copy the generated sample CSVs into the database</p></section>
+<div class="desc"><p>Copy the generated sample CSVs into the database</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -530,7 +532,7 @@ It raises an AssertionError if more than one column is returned</p></section>
 <span>(</span><span>*args, **kwargs)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Platform-independent GUID type.</p>
+<div class="desc"><p>Platform-independent GUID type.</p>
 <p>Uses PostgreSQL's UUID type, otherwise uses
 CHAR(32), storing as stringified hex values.</p>
 <p>Construct a :class:<code>.TypeDecorator</code>.</p>
@@ -543,7 +545,7 @@ object is assigned to the <code>self.impl</code> instance attribute
 it will be assigned to the same instance attribute 'as-is',
 ignoring those arguments passed to the constructor.</p>
 <p>Subclasses can override this to customize the generation
-of <code>self.impl</code> entirely.</p></section>
+of <code>self.impl</code> entirely.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -594,7 +596,7 @@ of <code>self.impl</code> entirely.</p></section>
 <dl>
 <dt id="scenographer.database.UUIDField.impl"><code class="name">var <span class="ident">impl</span></code></dt>
 <dd>
-<section class="desc"><p>The SQL CHAR type.</p></section>
+<div class="desc"><p>The SQL CHAR type.</p></div>
 </dd>
 </dl>
 <h3>Methods</h3>
@@ -603,14 +605,14 @@ of <code>self.impl</code> entirely.</p></section>
 <span>def <span class="ident">load_dialect_impl</span></span>(<span>self, dialect)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Return a :class:<code>.TypeEngine</code> object corresponding to a dialect.</p>
+<div class="desc"><p>Return a :class:<code>.TypeEngine</code> object corresponding to a dialect.</p>
 <p>This is an end-user override hook that can be used to provide
 differing types depending on the given dialect.
 It is used
 by the :class:<code>.TypeDecorator</code> implementation of :meth:<code>type_engine</code>
 to help determine what type should ultimately be returned
 for a given :class:<code>.TypeDecorator</code>.</p>
-<p>By default returns <code>self.impl</code>.</p></section>
+<p>By default returns <code>self.impl</code>.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -626,7 +628,7 @@ for a given :class:<code>.TypeDecorator</code>.</p>
 <span>def <span class="ident">process_bind_param</span></span>(<span>self, value, dialect)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Receive a bound parameter value to be converted.</p>
+<div class="desc"><p>Receive a bound parameter value to be converted.</p>
 <p>Subclasses override this method to return the
 value that should be passed along to the underlying
 :class:<code>.TypeEngine</code> object, and from there to the
@@ -640,7 +642,7 @@ this class.</p>
 <p>:param value: Data to operate upon, of any type expected by
 this method in the subclass.
 Can be <code>None</code>.
-:param dialect: the :class:<code>.Dialect</code> in use.</p></section>
+:param dialect: the :class:<code>.Dialect</code> in use.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -662,7 +664,7 @@ Can be <code>None</code>.
 <span>def <span class="ident">process_result_value</span></span>(<span>self, value, dialect)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Receive a result-row column value to be converted.</p>
+<div class="desc"><p>Receive a result-row column value to be converted.</p>
 <p>Subclasses should implement this method to operate on data
 fetched from the database.</p>
 <p>Subclasses override this method to return the
@@ -678,7 +680,7 @@ this method in the subclass.
 Can be <code>None</code>.
 :param dialect: the :class:<code>.Dialect</code> in use.</p>
 <p>This operation should be designed to be reversible by
-the "process_bind_param" method of this class.</p></section>
+the "process_bind_param" method of this class.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -740,9 +742,7 @@ the "process_bind_param" method of this class.</p></section>
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.5</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.4</a>.</p>
 </footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad()</script>
 </body>
 </html>
