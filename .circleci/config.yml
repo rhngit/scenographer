@@ -55,12 +55,16 @@ workflows:
     jobs:
       - build:
           filters:
+            tags:
+              only: /^v.*/
             branches:
-              only: master
+              ignore: /.*/
 
       - deployment:
           requires:
             - build
           filters:
+              tags:
+                only: /^v.*/
               branches:
-                only: master
+                ignore: /.*/
