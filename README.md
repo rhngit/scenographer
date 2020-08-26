@@ -84,7 +84,7 @@ Each entry is a table, with the exception of `_default` which is applied to all 
 
 ### OUTPUT_DIRECTORY
 
-At some point, the data is converted into CSV files to be imported into postgres. This is the directory for said CSV files. If you don't care about it, feel free to ignore. If it's not declared, it will create and use a temporary dictory instead.
+At some point, the data is converted into CSV files to be imported into postgres. This is the directory for said CSV files. If you don't care about it, feel free to ignore. If it's not declared, it will create and use a temporary directory instead.
 
 
 ## Contributing
