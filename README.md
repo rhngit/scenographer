@@ -5,7 +5,7 @@
 [![GitHub license](https://img.shields.io/github/license/zyperco/scenographer.svg?style=flat-square)](https://github.com/zyperco/scenographer/blob/master/LICENSE)
 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=flat-square)](https://GitHub.com/zyperco/scenographer/graphs/commit-activity)
-[![CircleCI Build Status](https://circleci.com/gh/zyperco/scenographer.svg?style=svg)](https://app.circleci.com/pipelines/github/zyperco/scenographer)
+[![CircleCI Build Status](https://circleci.com/gh/zyperco/scenographer.svg?style=shield)](https://app.circleci.com/pipelines/github/zyperco/scenographer)
 
 **scenographer** is a Python script that can create a subset of a postgres database, without losing referential integrity.
 
