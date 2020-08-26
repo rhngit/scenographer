@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.4" />
+<title>scenographer.postgres_copy API documentation</title>
+<meta name="description" content="Sourced from here: https://github.com/jmcarp/sqlalchemy-postgres-copy
+Extracted into the repository to avoid the psycopg2 dependency" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>scenographer.postgres_copy</code></h1>
+</header>
+<section id="section-intro">
+<p>Sourced from here: <a href="https://github.com/jmcarp/sqlalchemy-postgres-copy">https://github.com/jmcarp/sqlalchemy-postgres-copy</a>
+Extracted into the repository to avoid the psycopg2 dependency</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+Sourced from here: https://github.com/jmcarp/sqlalchemy-postgres-copy
+Extracted into the repository to avoid the psycopg2 dependency
+
+&#34;&#34;&#34;
+
+import six
+from sqlalchemy.dialects import postgresql
+from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.orm import Mapper, class_mapper
+from sqlalchemy.sql.operators import ColumnOperators
+
+__version__ = &#34;0.5.0&#34;
+
+
+def copy_to(source, dest, engine_or_conn, **flags):
+    &#34;&#34;&#34;Export a query or select to a file. For flags, see the PostgreSQL
+    documentation at http://www.postgresql.org/docs/9.5/static/sql-copy.html.
+
+    Examples: ::
+        select = MyTable.select()
+        with open(&#39;/path/to/file.tsv&#39;, &#39;w&#39;) as fp:
+            copy_to(select, fp, conn)
+
+        query = session.query(MyModel)
+        with open(&#39;/path/to/file/csv&#39;, &#39;w&#39;) as fp:
+            copy_to(query, fp, engine, format=&#39;csv&#39;, null=&#39;.&#39;)
+
+    :param source: SQLAlchemy query or select
+    :param dest: Destination file pointer, in write mode
+    :param engine_or_conn: SQLAlchemy engine, connection, or raw_connection
+    :param **flags: Options passed through to COPY
+
+    If an existing connection is passed to `engine_or_conn`, it is the caller&#39;s
+    responsibility to commit and close.
+    &#34;&#34;&#34;
+    dialect = postgresql.dialect()
+    statement = getattr(source, &#34;statement&#34;, source)
+    compiled = statement.compile(dialect=dialect)
+    conn, autoclose = raw_connection_from(engine_or_conn)
+    cursor = conn.cursor()
+    query = cursor.mogrify(compiled.string, compiled.params).decode()
+    formatted_flags = &#34;({})&#34;.format(format_flags(flags)) if flags else &#34;&#34;
+    copy = &#34;COPY ({}) TO STDOUT {}&#34;.format(query, formatted_flags)
+    cursor.copy_expert(copy, dest)
+    if autoclose:
+        conn.close()
+
+
+def copy_from(source, dest, engine_or_conn, columns=(), **flags):
+    &#34;&#34;&#34;Import a table from a file. For flags, see the PostgreSQL documentation
+    at http://www.postgresql.org/docs/9.5/static/sql-copy.html.
+
+    Examples: ::
+        with open(&#39;/path/to/file.tsv&#39;) as fp:
+            copy_from(fp, MyTable, conn)
+
+        with open(&#39;/path/to/file.csv&#39;) as fp:
+            copy_from(fp, MyModel, engine, format=&#39;csv&#39;)
+
+    :param source: Source file pointer, in read mode
+    :param dest: SQLAlchemy model or table
+    :param engine_or_conn: SQLAlchemy engine, connection, or raw_connection
+    :param columns: Optional tuple of columns
+    :param **flags: Options passed through to COPY
+
+    If an existing connection is passed to `engine_or_conn`, it is the caller&#39;s
+    responsibility to commit and close.
+
+    The `columns` flag can be set to a tuple of strings to specify the column
+    order. Passing `header` alone will not handle out of order columns, it simply tells
+    postgres to ignore the first line of `source`.
+    &#34;&#34;&#34;
+    tbl = dest.__table__ if is_model(dest) else dest
+    conn, autoclose = raw_connection_from(engine_or_conn)
+    cursor = conn.cursor()
+    relation = &#34;.&#34;.join(&#39;&#34;{}&#34;&#39;.format(part) for part in (tbl.schema, tbl.name) if part)
+    formatted_columns = &#34;({})&#34;.format(&#34;,&#34;.join(columns)) if columns else &#34;&#34;
+    formatted_flags = &#34;({})&#34;.format(format_flags(flags)) if flags else &#34;&#34;
+    copy = &#34;COPY {} {} FROM STDIN {}&#34;.format(
+        relation, formatted_columns, formatted_flags,
+    )
+    cursor.copy_expert(copy, source)
+    if autoclose:
+        conn.commit()
+        conn.close()
+
+
+def raw_connection_from(engine_or_conn):
+    &#34;&#34;&#34;Extract a raw_connection and determine if it should be automatically closed.
+
+    Only connections opened by this package will be closed automatically.
+    &#34;&#34;&#34;
+    if hasattr(engine_or_conn, &#34;cursor&#34;):
+        return engine_or_conn, False
+    if hasattr(engine_or_conn, &#34;connection&#34;):
+        return engine_or_conn.connection, False
+    return engine_or_conn.raw_connection(), True
+
+
+def format_flags(flags):
+    return &#34;, &#34;.join(
+        &#34;{} {}&#34;.format(key.upper(), format_flag(value)) for key, value in flags.items()
+    )
+
+
+def format_flag(value):
+    return six.text_type(value).upper() if isinstance(value, bool) else repr(value)
+
+
+def relabel_query(query):
+    &#34;&#34;&#34;Relabel query entities according to mappings defined in the SQLAlchemy
+    ORM. Useful when table column names differ from corresponding attribute
+    names. See http://docs.sqlalchemy.org/en/latest/orm/mapping_columns.html
+    for details.
+
+    :param query: SQLAlchemy query
+    &#34;&#34;&#34;
+    return query.with_entities(*query_entities(query))
+
+
+def query_entities(query):
+    return sum([desc_entities(desc) for desc in query.column_descriptions], [])
+
+
+def desc_entities(desc):
+    expr, name = desc[&#34;expr&#34;], desc[&#34;name&#34;]
+    if isinstance(expr, Mapper):
+        return mapper_entities(expr)
+    elif is_model(expr):
+        return mapper_entities(expr.__mapper__)
+    elif isinstance(expr, ColumnOperators):
+        return [expr.label(name)]
+    else:
+        raise ValueError(&#34;Unrecognized query entity {!r}&#34;.format(expr))
+
+
+def mapper_entities(mapper):
+    model = mapper.class_
+    return [getattr(model, prop.key).label(prop.key) for prop in mapper.column_attrs]
+
+
+def is_model(class_):
+    try:
+        class_mapper(class_)
+        return True
+    except SQLAlchemyError:
+        return False</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="scenographer.postgres_copy.copy_from"><code class="name flex">
+<span>def <span class="ident">copy_from</span></span>(<span>source, dest, engine_or_conn, columns=(), **flags)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Import a table from a file. For flags, see the PostgreSQL documentation
+at <a href="http://www.postgresql.org/docs/9.5/static/sql-copy.html.">http://www.postgresql.org/docs/9.5/static/sql-copy.html.</a></p>
+<p>Examples: ::
+with open('/path/to/file.tsv') as fp:
+copy_from(fp, MyTable, conn)</p>
+<pre><code>with open('/path/to/file.csv') as fp:
+    copy_from(fp, MyModel, engine, format='csv')
+</code></pre>
+<p>:param source: Source file pointer, in read mode
+:param dest: SQLAlchemy model or table
+:param engine_or_conn: SQLAlchemy engine, connection, or raw_connection
+:param columns: Optional tuple of columns
+:param **flags: Options passed through to COPY</p>
+<p>If an existing connection is passed to <code>engine_or_conn</code>, it is the caller's
+responsibility to commit and close.</p>
+<p>The <code>columns</code> flag can be set to a tuple of strings to specify the column
+order. Passing <code>header</code> alone will not handle out of order columns, it simply tells
+postgres to ignore the first line of <code>source</code>.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def copy_from(source, dest, engine_or_conn, columns=(), **flags):
+    &#34;&#34;&#34;Import a table from a file. For flags, see the PostgreSQL documentation
+    at http://www.postgresql.org/docs/9.5/static/sql-copy.html.
+
+    Examples: ::
+        with open(&#39;/path/to/file.tsv&#39;) as fp:
+            copy_from(fp, MyTable, conn)
+
+        with open(&#39;/path/to/file.csv&#39;) as fp:
+            copy_from(fp, MyModel, engine, format=&#39;csv&#39;)
+
+    :param source: Source file pointer, in read mode
+    :param dest: SQLAlchemy model or table
+    :param engine_or_conn: SQLAlchemy engine, connection, or raw_connection
+    :param columns: Optional tuple of columns
+    :param **flags: Options passed through to COPY
+
+    If an existing connection is passed to `engine_or_conn`, it is the caller&#39;s
+    responsibility to commit and close.
+
+    The `columns` flag can be set to a tuple of strings to specify the column
+    order. Passing `header` alone will not handle out of order columns, it simply tells
+    postgres to ignore the first line of `source`.
+    &#34;&#34;&#34;
+    tbl = dest.__table__ if is_model(dest) else dest
+    conn, autoclose = raw_connection_from(engine_or_conn)
+    cursor = conn.cursor()
+    relation = &#34;.&#34;.join(&#39;&#34;{}&#34;&#39;.format(part) for part in (tbl.schema, tbl.name) if part)
+    formatted_columns = &#34;({})&#34;.format(&#34;,&#34;.join(columns)) if columns else &#34;&#34;
+    formatted_flags = &#34;({})&#34;.format(format_flags(flags)) if flags else &#34;&#34;
+    copy = &#34;COPY {} {} FROM STDIN {}&#34;.format(
+        relation, formatted_columns, formatted_flags,
+    )
+    cursor.copy_expert(copy, source)
+    if autoclose:
+        conn.commit()
+        conn.close()</code></pre>
+</details>
+</dd>
+<dt id="scenographer.postgres_copy.copy_to"><code class="name flex">
+<span>def <span class="ident">copy_to</span></span>(<span>source, dest, engine_or_conn, **flags)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Export a query or select to a file. For flags, see the PostgreSQL
+documentation at <a href="http://www.postgresql.org/docs/9.5/static/sql-copy.html.">http://www.postgresql.org/docs/9.5/static/sql-copy.html.</a></p>
+<p>Examples: ::
+select = MyTable.select()
+with open('/path/to/file.tsv', 'w') as fp:
+copy_to(select, fp, conn)</p>
+<pre><code>query = session.query(MyModel)
+with open('/path/to/file/csv', 'w') as fp:
+    copy_to(query, fp, engine, format='csv', null='.')
+</code></pre>
+<p>:param source: SQLAlchemy query or select
+:param dest: Destination file pointer, in write mode
+:param engine_or_conn: SQLAlchemy engine, connection, or raw_connection
+:param **flags: Options passed through to COPY</p>
+<p>If an existing connection is passed to <code>engine_or_conn</code>, it is the caller's
+responsibility to commit and close.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def copy_to(source, dest, engine_or_conn, **flags):
+    &#34;&#34;&#34;Export a query or select to a file. For flags, see the PostgreSQL
+    documentation at http://www.postgresql.org/docs/9.5/static/sql-copy.html.
+
+    Examples: ::
+        select = MyTable.select()
+        with open(&#39;/path/to/file.tsv&#39;, &#39;w&#39;) as fp:
+            copy_to(select, fp, conn)
+
+        query = session.query(MyModel)
+        with open(&#39;/path/to/file/csv&#39;, &#39;w&#39;) as fp:
+            copy_to(query, fp, engine, format=&#39;csv&#39;, null=&#39;.&#39;)
+
+    :param source: SQLAlchemy query or select
+    :param dest: Destination file pointer, in write mode
+    :param engine_or_conn: SQLAlchemy engine, connection, or raw_connection
+    :param **flags: Options passed through to COPY
+
+    If an existing connection is passed to `engine_or_conn`, it is the caller&#39;s
+    responsibility to commit and close.
+    &#34;&#34;&#34;
+    dialect = postgresql.dialect()
+    statement = getattr(source, &#34;statement&#34;, source)
+    compiled = statement.compile(dialect=dialect)
+    conn, autoclose = raw_connection_from(engine_or_conn)
+    cursor = conn.cursor()
+    query = cursor.mogrify(compiled.string, compiled.params).decode()
+    formatted_flags = &#34;({})&#34;.format(format_flags(flags)) if flags else &#34;&#34;
+    copy = &#34;COPY ({}) TO STDOUT {}&#34;.format(query, formatted_flags)
+    cursor.copy_expert(copy, dest)
+    if autoclose:
+        conn.close()</code></pre>
+</details>
+</dd>
+<dt id="scenographer.postgres_copy.desc_entities"><code class="name flex">
+<span>def <span class="ident">desc_entities</span></span>(<span>desc)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def desc_entities(desc):
+    expr, name = desc[&#34;expr&#34;], desc[&#34;name&#34;]
+    if isinstance(expr, Mapper):
+        return mapper_entities(expr)
+    elif is_model(expr):
+        return mapper_entities(expr.__mapper__)
+    elif isinstance(expr, ColumnOperators):
+        return [expr.label(name)]
+    else:
+        raise ValueError(&#34;Unrecognized query entity {!r}&#34;.format(expr))</code></pre>
+</details>
+</dd>
+<dt id="scenographer.postgres_copy.format_flag"><code class="name flex">
+<span>def <span class="ident">format_flag</span></span>(<span>value)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def format_flag(value):
+    return six.text_type(value).upper() if isinstance(value, bool) else repr(value)</code></pre>
+</details>
+</dd>
+<dt id="scenographer.postgres_copy.format_flags"><code class="name flex">
+<span>def <span class="ident">format_flags</span></span>(<span>flags)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def format_flags(flags):
+    return &#34;, &#34;.join(
+        &#34;{} {}&#34;.format(key.upper(), format_flag(value)) for key, value in flags.items()
+    )</code></pre>
+</details>
+</dd>
+<dt id="scenographer.postgres_copy.is_model"><code class="name flex">
+<span>def <span class="ident">is_model</span></span>(<span>class_)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_model(class_):
+    try:
+        class_mapper(class_)
+        return True
+    except SQLAlchemyError:
+        return False</code></pre>
+</details>
+</dd>
+<dt id="scenographer.postgres_copy.mapper_entities"><code class="name flex">
+<span>def <span class="ident">mapper_entities</span></span>(<span>mapper)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def mapper_entities(mapper):
+    model = mapper.class_
+    return [getattr(model, prop.key).label(prop.key) for prop in mapper.column_attrs]</code></pre>
+</details>
+</dd>
+<dt id="scenographer.postgres_copy.query_entities"><code class="name flex">
+<span>def <span class="ident">query_entities</span></span>(<span>query)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def query_entities(query):
+    return sum([desc_entities(desc) for desc in query.column_descriptions], [])</code></pre>
+</details>
+</dd>
+<dt id="scenographer.postgres_copy.raw_connection_from"><code class="name flex">
+<span>def <span class="ident">raw_connection_from</span></span>(<span>engine_or_conn)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Extract a raw_connection and determine if it should be automatically closed.</p>
+<p>Only connections opened by this package will be closed automatically.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def raw_connection_from(engine_or_conn):
+    &#34;&#34;&#34;Extract a raw_connection and determine if it should be automatically closed.
+
+    Only connections opened by this package will be closed automatically.
+    &#34;&#34;&#34;
+    if hasattr(engine_or_conn, &#34;cursor&#34;):
+        return engine_or_conn, False
+    if hasattr(engine_or_conn, &#34;connection&#34;):
+        return engine_or_conn.connection, False
+    return engine_or_conn.raw_connection(), True</code></pre>
+</details>
+</dd>
+<dt id="scenographer.postgres_copy.relabel_query"><code class="name flex">
+<span>def <span class="ident">relabel_query</span></span>(<span>query)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Relabel query entities according to mappings defined in the SQLAlchemy
+ORM. Useful when table column names differ from corresponding attribute
+names. See <a href="http://docs.sqlalchemy.org/en/latest/orm/mapping_columns.html">http://docs.sqlalchemy.org/en/latest/orm/mapping_columns.html</a>
+for details.</p>
+<p>:param query: SQLAlchemy query</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def relabel_query(query):
+    &#34;&#34;&#34;Relabel query entities according to mappings defined in the SQLAlchemy
+    ORM. Useful when table column names differ from corresponding attribute
+    names. See http://docs.sqlalchemy.org/en/latest/orm/mapping_columns.html
+    for details.
+
+    :param query: SQLAlchemy query
+    &#34;&#34;&#34;
+    return query.with_entities(*query_entities(query))</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="scenographer" href="index.html">scenographer</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="two-column">
+<li><code><a title="scenographer.postgres_copy.copy_from" href="#scenographer.postgres_copy.copy_from">copy_from</a></code></li>
+<li><code><a title="scenographer.postgres_copy.copy_to" href="#scenographer.postgres_copy.copy_to">copy_to</a></code></li>
+<li><code><a title="scenographer.postgres_copy.desc_entities" href="#scenographer.postgres_copy.desc_entities">desc_entities</a></code></li>
+<li><code><a title="scenographer.postgres_copy.format_flag" href="#scenographer.postgres_copy.format_flag">format_flag</a></code></li>
+<li><code><a title="scenographer.postgres_copy.format_flags" href="#scenographer.postgres_copy.format_flags">format_flags</a></code></li>
+<li><code><a title="scenographer.postgres_copy.is_model" href="#scenographer.postgres_copy.is_model">is_model</a></code></li>
+<li><code><a title="scenographer.postgres_copy.mapper_entities" href="#scenographer.postgres_copy.mapper_entities">mapper_entities</a></code></li>
+<li><code><a title="scenographer.postgres_copy.query_entities" href="#scenographer.postgres_copy.query_entities">query_entities</a></code></li>
+<li><code><a title="scenographer.postgres_copy.raw_connection_from" href="#scenographer.postgres_copy.raw_connection_from">raw_connection_from</a></code></li>
+<li><code><a title="scenographer.postgres_copy.relabel_query" href="#scenographer.postgres_copy.relabel_query">relabel_query</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.4</a>.</p>
+</footer>
+</body>
+</html>
