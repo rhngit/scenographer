@@ -41,7 +41,6 @@ from pipes import quote
 from types import SimpleNamespace
 from typing import Any, Iterable, List, Mapping, NamedTuple, TextIO
 
-import postgres_copy
 import sqlalchemy
 from loguru import logger
 from sqlalchemy.dialects.postgresql import UUID
@@ -50,6 +49,7 @@ from sqlalchemy.schema import Table
 from sqlalchemy.sql.expression import Select
 from sqlalchemy.types import CHAR, TypeDecorator
 
+import scenographer.postgres_copy as postgres_copy
 from scenographer.utils import PrintAs
 
 
