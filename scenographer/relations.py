@@ -90,7 +90,10 @@ class RelationDAG(NamedTuple):
 
         networkx.draw_networkx_nodes(self.graph, pos, node_size=5000, alpha=0.9)
         networkx.draw_networkx_edges(
-            self.graph, pos, arrows=True, node_size=5000,
+            self.graph,
+            pos,
+            arrows=True,
+            node_size=5000,
         )
         networkx.draw_networkx_labels(self.graph, pos)
 

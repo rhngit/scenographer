@@ -67,7 +67,9 @@ class Settings(NamedTuple):
     @lru_cache()
     def json(self):
         return json.dumps(
-            {k: thaw(v) for k, v in self._asdict().items()}, indent=4, sort_keys=True,
+            {k: thaw(v) for k, v in self._asdict().items()},
+            indent=4,
+            sort_keys=True,
         )
 
 
@@ -198,7 +200,8 @@ class Scenographer(NamedTuple):
         default_conditions = dig(thaw(mods), "_default", "conditions") or list()
 
         non_specified_entrypoints = operator.sub(
-            set([t.name for t in self.relation_dag.entrypoints]), set(mods.keys()),
+            set([t.name for t in self.relation_dag.entrypoints]),
+            set(mods.keys()),
         )
         if non_specified_entrypoints:
             logger.warning(
@@ -206,7 +209,8 @@ class Scenographer(NamedTuple):
                 "They define what the final sample will look like"
             )
             logger.warning(
-                "These entrypoints are not specified: {}", non_specified_entrypoints,
+                "These entrypoints are not specified: {}",
+                non_specified_entrypoints,
             )
 
         modifiers = {}
