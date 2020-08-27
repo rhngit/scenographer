@@ -100,7 +100,9 @@ class Settings(NamedTuple):
     @lru_cache()
     def json(self):
         return json.dumps(
-            {k: thaw(v) for k, v in self._asdict().items()}, indent=4, sort_keys=True,
+            {k: thaw(v) for k, v in self._asdict().items()},
+            indent=4,
+            sort_keys=True,
         )
 
 
@@ -231,7 +233,8 @@ class Scenographer(NamedTuple):
         default_conditions = dig(thaw(mods), &#34;_default&#34;, &#34;conditions&#34;) or list()
 
         non_specified_entrypoints = operator.sub(
-            set([t.name for t in self.relation_dag.entrypoints]), set(mods.keys()),
+            set([t.name for t in self.relation_dag.entrypoints]),
+            set(mods.keys()),
         )
         if non_specified_entrypoints:
             logger.warning(
@@ -239,7 +242,8 @@ class Scenographer(NamedTuple):
                 &#34;They define what the final sample will look like&#34;
             )
             logger.warning(
-                &#34;These entrypoints are not specified: {}&#34;, non_specified_entrypoints,
+                &#34;These entrypoints are not specified: {}&#34;,
+                non_specified_entrypoints,
             )
 
         modifiers = {}
@@ -467,7 +471,8 @@ class Scenographer(NamedTuple):
         default_conditions = dig(thaw(mods), &#34;_default&#34;, &#34;conditions&#34;) or list()
 
         non_specified_entrypoints = operator.sub(
-            set([t.name for t in self.relation_dag.entrypoints]), set(mods.keys()),
+            set([t.name for t in self.relation_dag.entrypoints]),
+            set(mods.keys()),
         )
         if non_specified_entrypoints:
             logger.warning(
@@ -475,7 +480,8 @@ class Scenographer(NamedTuple):
                 &#34;They define what the final sample will look like&#34;
             )
             logger.warning(
-                &#34;These entrypoints are not specified: {}&#34;, non_specified_entrypoints,
+                &#34;These entrypoints are not specified: {}&#34;,
+                non_specified_entrypoints,
             )
 
         modifiers = {}
@@ -743,7 +749,8 @@ def query_modifiers(self) -&gt; Mapping[Table, Mapping[str, Any]]:
     default_conditions = dig(thaw(mods), &#34;_default&#34;, &#34;conditions&#34;) or list()
 
     non_specified_entrypoints = operator.sub(
-        set([t.name for t in self.relation_dag.entrypoints]), set(mods.keys()),
+        set([t.name for t in self.relation_dag.entrypoints]),
+        set(mods.keys()),
     )
     if non_specified_entrypoints:
         logger.warning(
@@ -751,7 +758,8 @@ def query_modifiers(self) -&gt; Mapping[Table, Mapping[str, Any]]:
             &#34;They define what the final sample will look like&#34;
         )
         logger.warning(
-            &#34;These entrypoints are not specified: {}&#34;, non_specified_entrypoints,
+            &#34;These entrypoints are not specified: {}&#34;,
+            non_specified_entrypoints,
         )
 
     modifiers = {}
@@ -937,7 +945,9 @@ def target_database(self) -&gt; Database:
     @lru_cache()
     def json(self):
         return json.dumps(
-            {k: thaw(v) for k, v in self._asdict().items()}, indent=4, sort_keys=True,
+            {k: thaw(v) for k, v in self._asdict().items()},
+            indent=4,
+            sort_keys=True,
         )</code></pre>
 </details>
 <h3>Ancestors</h3>
@@ -1038,7 +1048,9 @@ def load(cls, path):
 @lru_cache()
 def json(self):
     return json.dumps(
-        {k: thaw(v) for k, v in self._asdict().items()}, indent=4, sort_keys=True,
+        {k: thaw(v) for k, v in self._asdict().items()},
+        indent=4,
+        sort_keys=True,
     )</code></pre>
 </details>
 </dd>
