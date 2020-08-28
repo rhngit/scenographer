@@ -423,7 +423,7 @@ description = "Auto-generate API documentation for Python projects."
 name = "pdoc3"
 optional = false
 python-versions = ">= 3.5"
-version = "0.9.0"
+version = "0.9.1"
 
 [package.dependencies]
 mako = "*"
@@ -749,7 +749,7 @@ python-versions = "*"
 version = "1.12.1"
 
 [metadata]
-content-hash = "c9ca1d7dc117528f68b92c640b9cadac41b957503b500c605ff9ea2acbb5aef5"
+content-hash = "692dde9b5c68ef53beafb41b9cde40faf2ecf68cc2864029533269cea28b8820"
 python-versions = "^3.8"
 
 [metadata.files]
@@ -1014,7 +1014,7 @@ pathspec = [
     {file = "pathspec-0.8.0.tar.gz", hash = "sha256:da45173eb3a6f2a5a487efba21f050af2b41948be6ab52b6a1e3ff22bb8b7061"},
 ]
 pdoc3 = [
-    {file = "pdoc3-0.9.0.tar.gz", hash = "sha256:3d04d5d84e88e3b7e0953c501552a77c85de996221415fd3ed354967c08c1ba3"},
+    {file = "pdoc3-0.9.1.tar.gz", hash = "sha256:e1848d5485b8dd4662272f83bb5f7df4a68e0a5d76c87be30327977777168894"},
 ]
 pexpect = [
     {file = "pexpect-4.8.0-py2.py3-none-any.whl", hash = "sha256:0b48a55dcb3c05f3329815901ea4fc1537514d6ba867a152b581d69ae3710937"},
