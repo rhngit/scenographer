@@ -565,10 +565,7 @@ description = "Persistent/Functional/Immutable data structures"
 name = "pyrsistent"
 optional = false
 python-versions = "*"
-version = "0.16.0"
-
-[package.dependencies]
-six = "*"
+version = "0.17.0"
 
 [[package]]
 category = "dev"
@@ -749,7 +746,7 @@ python-versions = "*"
 version = "1.12.1"
 
 [metadata]
-content-hash = "a23d9309f7e75f4a497fc58074a9f35ccf754db0c5199db426babc67e152e6e5"
+content-hash = "8ab297cab94948820d6da28536ebaba42a20a9f6a86e4acf089b881baa8e9004"
 lock-version = "1.0"
 python-versions = "^3.8"
 
@@ -1139,7 +1136,7 @@ pyparsing = [
     {file = "pyparsing-2.4.7.tar.gz", hash = "sha256:c203ec8783bf771a155b207279b9bccb8dea02d8f0c9e5f8ead507bc3246ecc1"},
 ]
 pyrsistent = [
-    {file = "pyrsistent-0.16.0.tar.gz", hash = "sha256:28669905fe725965daa16184933676547c5bb40a5153055a8dee2a4bd7933ad3"},
+    {file = "pyrsistent-0.17.0.tar.gz", hash = "sha256:8690178e75460d3afe32d6222feed1ca1fdd4ef7317f6d8b42147bcce5f9ee75"},
 ]
 pytest = [
     {file = "pytest-6.0.1-py3-none-any.whl", hash = "sha256:8b6007800c53fdacd5a5c192203f4e531eb2a1540ad9c752e052ec0f7143dbad"},
