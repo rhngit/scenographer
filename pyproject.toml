@@ -32,7 +32,7 @@ ipython = "^7.18.1"
 pdoc3 = "^0.9.1"
 pylint = "^2.6.0"
 pytest = "^6.1.0"
-isort = "^5.4.2"
+isort = "^5.6.3"
 black = "^20.8b1"
 flake8 = "^3.8.3"
 
