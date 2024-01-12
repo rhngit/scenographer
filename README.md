@@ -12,7 +12,7 @@
 The goal is to be able to spawn data-correct databases to easily create new environments that can be used for testing and / or demo'ing.
 
 Relevant links:
-  - [Documentation](https://zyperco.github.io/scenographer/)
+  - [Documentation](https://rhngit.github.io/scenographer/)
 
 ## Installation
 
